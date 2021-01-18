@@ -1,10 +1,10 @@
 <?php
 class Not{
-    public function __construct(){
-        echo '<br>page not found';
-        
+    public function __constact(){
     }
-    public function index(){
-        
-    }
+
+
+public function index(){
+    echo"not found";
+}
 }

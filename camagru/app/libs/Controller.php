@@ -12,13 +12,13 @@ class Controller{
         require_once './app/models/' . $model . '.php'; //Require model file
         return new $model();
     }
-    public function view($view, $data = [])
-    {
+    public function view($view, $data = []){
         if(file_exists('./app/views/' . $view . '.php'))
             require_once './app/views/' . $view . '.php';
-        else
-             echo 'view not found';//if don't have view will require 403
+        else{
+             die('view not found');//if don't have view will require 403
 
+    }
     }
 
 }

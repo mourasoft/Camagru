@@ -36,7 +36,7 @@ class Core{
           }
           else //if method not exict go to the not found page
           { 
-             $this->controller = 'Not';
+            $this->controller = 'Not';
             
           }
        } 
