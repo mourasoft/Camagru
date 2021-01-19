@@ -19,9 +19,9 @@ class Core{
          //    if exists set as controller
          $this->controller = ucwords($url[0]);
          // unset the url
-         unset($url[0]);
-         
-       }
+		 unset($url[0]);
+		 require_once './app/controllers/' . $this->controller . '.php'; 
+	   }
        else if(!empty($url[0]))
        // here must redirected to the not found page Controller
        $this->controller = 'Not';

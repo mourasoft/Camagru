@@ -18,7 +18,8 @@
         </div>
         <div class="navbar-end">
           <a href="<?= URLROOT?>/users/register" class="navbar-item">register</a>
-          <a href="/users/login" class="navbar-item">login</a>
+          <a href="<?= URLROOT?>/users/login" class="navbar-item">login</a>
         </div>
       </div>
   </nav>
+  <div class="container">
