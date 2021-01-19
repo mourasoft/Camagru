@@ -1,10 +1,11 @@
 <?php
-class Not{
+class Not extends Controller{
     public function __constact(){
+    
     }
 
 
 public function index(){
-    echo"not found";
+    $this->view('not');
 }
 }

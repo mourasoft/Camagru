@@ -34,9 +34,10 @@ class Core{
              }
              $this->method = $url['1'];
           }
-          else //if method not exict go to the not found page
+          else  //if method not exict go to the not found page
           { 
-            $this->controller = 'Not';
+            $this->controller = 'Not'; 
+            
             
           }
        } 

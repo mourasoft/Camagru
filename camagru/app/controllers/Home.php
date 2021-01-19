@@ -4,15 +4,16 @@ class Home extends Controller{
     }
     public function index()
     {
-        $data = [
-            'title' => 'welcome',
-        ];
         $this->view('index',$data);
+        
+        $this->view('index');
     }
-    public function about()
-    {
-        echo 'about page ';
+    public function about($id){
+        
+        echo "$id that good";
+        $this->view('about');
+    } 
+    public function like(){
+        echo "like page is me";
     }
-   
-    
 }

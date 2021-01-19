@@ -13,12 +13,12 @@
       <!-- menu -->
       <div class="navbar-menu" id="nav-link" >
         <div class="navbar-start">
-            <a href="" class="navbar-item" >HOME</a>
-            <a href="" class="navbar-item">camagru</a>
+            <a href="<?= URLROOT?>" class="navbar-item" >HOME</a>
+            <a href="<?= URLROOT?>" class="navbar-item">camagru</a>
         </div>
         <div class="navbar-end">
-          <a href="" class="navbar-item">registre</a>
-          <a href=""class="navbar-item">login</a>
+          <a href="<?= URLROOT?>/users/register" class="navbar-item">register</a>
+          <a href="/users/login" class="navbar-item">login</a>
         </div>
       </div>
   </nav>
