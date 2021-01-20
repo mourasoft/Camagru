@@ -7,15 +7,7 @@
 	<div class="registration-box">
 		<h1>Welcome to Camagru!</h1>
 		<p>Registration is free, fast, and simple.</p>
-		<form class="myform" action="<?php echo URLROOT ?>/account/register" method="post">
-			<div class="field">
-
-				<label>First Name</label>
-				<input class="input" name="first_name" type="text" value="<?php if (!$data['first_name_err']) echo $data['first_name']; ?>">
-				<p class="help is-danger"><?php if ($data['first_name_err']) {
-												echo $data['first_name_err'];
-											} ?></p>
-			</div>
+		<form class="myform" action="/users/register" method="post">
 			<div class="field">
 				<label>Username</label>
 				<div class="control has-icons-left has-icons-right">
@@ -55,16 +47,16 @@
 			<div class="field">
 				<label>Confirm Password</label>
 				<div class="control has-icons-left has-icons-right">
-					<input class="input" name="password_c" type="password" value="<?php if (!$data['password_c_err']) echo $data['password_c']; ?>">
+					<input class="input" name="c_password" type="password" value="<?php if (!$data['c_password_err']) echo $data['c_password']; ?>">
 					<span class="icon is-small is-left">
 						<i class="fas fa-lock"></i>
 					</span>
 				</div>
-				<p class="help is-danger"><?php if ($data['password_c_err']) {
-												echo $data['password_c_err'];
+				<p class="help is-danger"><?php if ($data['c_password_err']) {
+												echo $data['c_password_err'];
 											} ?></p>
 			</div>
-			<div class="control">
+			<div class="control" style="display: flex; justify-content: center;">
 				<input type="submit" value="Register" class="button is-linkclass is-primary">
 			</div>
 		</form>

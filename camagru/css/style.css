@@ -41,3 +41,7 @@ footer {
 .navbar-item:hover {
 	background: #151e30 !important;
 }
+.control {
+	display: flex !important;
+	justify-content: center !important;
+}
