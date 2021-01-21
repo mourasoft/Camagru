@@ -32,7 +32,7 @@ class Core{
              if ($url[1] == '__construct'){
                $this->controller = 'Not';
              }
-             $this->method = $url['1'];
+             $this->method = $url[1];
           }
           else  //if method not exict go to the not found page
           { 
