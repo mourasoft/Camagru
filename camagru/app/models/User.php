@@ -2,17 +2,55 @@
 class User
 {
 	private $db;
-	public function __constract()
+	public function __construct()
 	{
 		$this->db = new Database;
 	}
-	// check if email exist in database.
-	// public function checkEMailExist($email)
-	// {
-	// $this->db->query();
-	// }
-	// check if username exist in database
-	// public function checkUserexist($username)
-	// {
-	// }
+
+	public function checkUserexist($username)
+	{
+		$this->db->query('SELECT * FROM `users` WHERE `username`=:username');
+		$this->db->bind(':username', $username);
+		$this->db->single();
+		$var = $this->db->rowCount();
+		if ($var) {
+			return true;
+		} else
+			return false;
+	}
+	public function checkEmailexist($email)
+	{
+		$this->db->query('SELECT * FROM `users` WHERE `email`=:email');
+		$this->db->bind(':email', $email);
+		$this->db->single();
+		$var = $this->db->rowCount();
+		if ($var) {
+			return true;
+		} else
+			return false;
+	}
+	public function register($data, $token)
+	{
+		$this->db->query("INSERT INTO `users` SET `username`= :username, `email` = :email , `password` = :password, `confirmation_token` = :token ");
+		$this->db->bind(':username', $data['username']);
+		$this->db->bind(':email', $data['email']);
+		$this->db->bind(':password', $data['password']);
+		$this->db->bind(':token', $token);
+		return $this->db->execute();;
+	}
+	public function lastId()
+	{
+		return $this->db->lastInsertId();
+	}
+	public function token_very($id)
+	{
+		$this->db->query('SELECT `confirmation_token` FROM `users` WHERE `id` = :id');
+		$this->db->bind(':id', $id);
+		return $this->db->single()->confirmation_token;
+	}
+	public function tokenUpdate($id)
+	{
+		$this->db->query('UPDATE `users` SET `confirmation_token` = NULL , `confirmed_at` = NOW()');
+		$this->db->execute();
+	}
 }

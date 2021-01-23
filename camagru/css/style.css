@@ -5,7 +5,7 @@ body {
 	background-color: #151e30;
 }
 
-body {
+.all {
 	display: flex;
 	flex-direction: column;
 }
@@ -33,7 +33,7 @@ footer {
 }
 .container {
 	align-items: center;
-	display: flex;
+	display: block;;
 	flex-grow: 1;
 	width: 100%;
 	justify-content: center;
@@ -45,3 +45,14 @@ footer {
 	display: flex !important;
 	justify-content: center !important;
 }
+.form{
+	margin-left: auto!important;
+	margin-right: auto!important;
+	margin-top: auto!important;
+	margin-bottom: auto!important;
+}
+/* .navbar{
+	padding-left: .5rem!important;
+	padding-right: .5rem!important;
+	
+} */

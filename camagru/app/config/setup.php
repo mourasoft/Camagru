@@ -19,10 +19,12 @@ $db->exec($sql);
 try{
     $sql = "CREATE TABLE IF NOT EXISTS `users` 
     ( 
-        `id` INT AUTO_INCREMENT PRIMARY KEY, 
+        `id` INT(11) AUTO_INCREMENT PRIMARY KEY, 
         `username` VARCHAR(25) NOT NULL , 
         `email` VARCHAR(60) NOT NULL , 
-        `password` VARCHAR(255) NOT NULL 
+        `password` VARCHAR(255) NOT NULL ,
+		`confirmation_token` VARCHAR(255) NULL ,
+		`confirmed_at` DATETIME NULL
         )";
      //var_dump($sql) ."<br>";
 $db->exec($sql);
