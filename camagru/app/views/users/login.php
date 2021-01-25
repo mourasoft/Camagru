@@ -1,17 +1,19 @@
 <?php require_once APPROOT . "/views/inc/header.php"; ?>
 <?php require_once APPROOT . "/views/inc/navbar.php" ?>
-<div class="notification is-success">
-  <button class="delete"></button>
-  Primar lorem ipsum dolor sit amet, consectetur
-  adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Sit amet,
-  consectetur adipiscing elit
-</div>
-<div class = "all">
+
+<?php if ($flash = getFlash()) : ?>
+	<?php foreach ($flash as $type => $msg) : ?>
+		<div class="notification is-<?= $type ?>"><?= $msg ?></div>
+	<?php endforeach; ?>
+<?php endif; ?>
+
+
+<div class="all">
 	<div class="form">
 		<div class="login-box">
 			<h1>SIGN IN</h1>
 			<p>LOG IN TO YOUR ACCOUNT TO CONTINUE.</p>
-			<form action="" class="myform">
+			<form action="/users/login" class="myform" method='post'>
 				<div class="field">
 					<label>Email or Username</label>
 					<div class="control has-icons-left has-icons-right">

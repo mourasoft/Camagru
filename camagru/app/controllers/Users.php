@@ -13,6 +13,8 @@ class Users extends controller
 
 	public function register()
 	{
+		if (islogged())
+			redirect('/');
 
 		// check for POST
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -66,6 +68,7 @@ class Users extends controller
 				// 	$data['password_err'] = "Please enter valid password.";
 				// }
 			}
+
 			// valid confirme password
 			if (empty($_POST['c_password'])) {
 				$data['c_password_err'] = "Please enter confirme password.";
@@ -84,17 +87,16 @@ class Users extends controller
 				$token = gen_token(40);
 
 				if ($this->userModel->register($data, $token)) {
-
-					// header("Location:" . URLROOT . "/users/login");
 					$id = $this->userModel->lastId();
 					send_token($data, $token, $id);
-					// need flash message to validate acount
+					setFlash("success", "account successfully created check your email.");
+					redirect('/users/login');
 				} else {
 					die('registration error');
 				}
 			} else {
 				// load the view with error
-				$this->view('users/register', $data);
+				$this->view('/users/register', $data);
 			}
 		} else {
 			// init data
@@ -108,25 +110,85 @@ class Users extends controller
 				'password_err' => '',
 				'email_err' => ''
 			];
+
+			$this->view('/users/register', $data);
 		}
-		$this->view('/users/register', $data);
 	}
 	public function login()
 	{
-		$this->view('/users/login');
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$data = [
+				'login' => $_POST['login'],
+				'password' => $_POST['password'],
+				'login_err' => '',
+				'password_err' => '',
+			];
+			// valid login
+			if (empty($data['login']) or empty($data['password'])) {
+				if (empty($data['login'])) $data['login_err'] = 'Email or username is required';
+				if (empty($data['password'])) $data['password_err'] = 'password is required';
+			} else {
+				if (!($this->userModel->checklogin($data['login']))) {
+					/* login not found */
+					$data['login_err'] = 'login or password is not good';
+				} else {
+					/*check the password*/
+					$var = $this->userModel->getDataUser($data['login']);
+					if (!password_verify($data['password'], ($var->password))) {
+						$data['password_err'] = 'wrong password';
+					}
+				}
+			}
+			if (isset($data['login_err'])) $data['password'] = '';
+			if (empty($data['password_err']) && empty($data['login_err'])) {
+				$var = $this->userModel->getDataUser($data['login']);
+				if (!$var->confirmed_at) {
+					setFlash('danger', 'please verify your account email');
+					redirect('/users/login');
+					debug($var->confirmed_at);
+				} else {
+					// echo "is confirmed"; creat a session to a user 
+					$_SESSION['auth'] = $var;
+					// var_dump($_SESSION['auth']);
+					$user = $_SESSION['auth'];
+					// echo $user->username;
+					// die();
+					redirect('/');
+				}
+			} else {
+				$this->view('/users/login', $data);
+			}
+		} else {
+			$data = [
+				'login' => '',
+				'password' => '',
+				'login_err' => '',
+				'password_err' => '',
+			];
+			$this->view('/users/login', $data);
+		}
 	}
 	public function verify($id = '', $token = '')
 	{
-		if (is_numeric($id)) {
+		// session_start();
+		if (is_numeric($id) && (strlen($token) == 40)) {
 			$token_very = $this->userModel->token_very($id);
 			if ($token_very == $token) {
 				$this->userModel->tokenUpdate($id);
-				die("succes");
+				setFlash("success", "safi dakchi nadi");
+				redirect("/users/login");
 			} else {
-				die("token alerdy checked");
+				setFlash("danger", "token alerdy checked");
+				redirect("/users/login");
 			}
 		} else {
-			die("token not valid or expired");
+
+			setFlash("danger", "token not valid");
+			redirect("/users/register");
 		}
+	}
+	public function logout(){
+		unset($_SESSION['auth']);
+		redirect('/users/login');
 	}
 }

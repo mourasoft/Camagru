@@ -6,7 +6,7 @@ function send_token($data,$token,$id){
     $recipient = $data['email'];
 
     $subject = "Camagru verification mail";
-    $link = URLROOT."/account/verify/".$id.'/'.$token;
+    $link = URLROOT."/users/verify/".$id.'/'.$token;
 	$message = 'hey ' . $data['username'] . '<br>this is the link' . $link;
 	$message .= '<br><br><a href='.$link.'></a>';
 	$message .= '<br><br>thanks';

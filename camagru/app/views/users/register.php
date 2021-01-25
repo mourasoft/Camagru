@@ -2,7 +2,11 @@
 <?php require_once APPROOT . "/views/inc/navbar.php" ?>
 
 <!-- <link rel="stylesheet" href="<?= URLROOT ?>/css/style.css"> -->
-
+<?php if ($flash = getFlash()) : ?>
+	<?php foreach ($flash as $type => $msg) : ?>
+		<div class="notification is-<?= $type ?>"><?= $msg ?></div>
+	<?php endforeach; ?>
+<?php endif; ?>
 <div class="form">
 	<div class="registration-box">
 		<h1>Welcome to Camagru!</h1>

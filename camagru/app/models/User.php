@@ -53,4 +53,20 @@ class User
 		$this->db->query('UPDATE `users` SET `confirmation_token` = NULL , `confirmed_at` = NOW()');
 		$this->db->execute();
 	}
+	public function checklogin($login)
+	{
+		if($this->checkUserexist($login))
+			return true;
+		else{
+			if($this->checkEmailexist($login))
+				return true;
+			else
+				return false;
+		}
+	}
+	public function getDataUser($data){
+		$this->db->query("SELECT * FROM `users` WHERE `username` = :login OR `email` = :login");
+		$this->db->bind(':login', $data);
+		return $this->db->single();
+	}
 }
