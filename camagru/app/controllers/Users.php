@@ -250,8 +250,6 @@ class Users extends controller
 							'c_password_err' => '',
 						];
 						
-						echo "hnaya : ";
-						var_dump($data['id']);
 						if (empty($_POST['password'])) {
 							$data['password_err'] = "Please enter your password.";
 						} else {
@@ -259,7 +257,7 @@ class Users extends controller
 								$data['password_err'] = "Please enter valid password.";
 							}
 						}
-			
+						
 						// valid confirme password
 						if (empty($_POST['c_password'])) {
 							$data['c_password_err'] = "Please enter confirme password.";
@@ -268,26 +266,27 @@ class Users extends controller
 								$data['c_password_err'] = "Please confirme your password.";
 							}
 						}
-			
+						
 						if(empty($data['password_err']) && empty($data['c_password_err'])){
 							// change hash password in the databasse 
-							$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
-							$this->userModel->resetUpdate($id);
-							$this->userModel->passupdate($data['id'], $data['password']);
-							setFlash('succes','password was reset');
-							redirect('/users/login');
+							// $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+							// $this->userModel->resetUpdate($id);
+							// $this->userModel->passupdate($data['id'], $data['password']);
+							// setFlash('succes','password was reset');
+							// redirect('/users/login');
 						}else{
-							$this->view('/users/passreset', $data);
+							$this->view('/users/reset', $data);
 						}
-					} else {
-						$data = [
-							'password' => '',
-							'c_pasword' => '',
-							'password_err' => '',
-							'c_password_err' => ''
-						];
-						$this->view('/users/passreset', $data);
-					}
+					}//  else {
+					// 	$data = [
+					// 		'password' => '',
+					// 		'c_pasword' => '',
+					// 		'password_err' => '',
+					// 		'c_password_err' => ''
+					// 	];
+					// 	$this->view('/users/reset', $data);
+					// 	echo "ana hna";
+					// }
 					
 
 					// change it in data basa
