@@ -2,6 +2,8 @@
 require_once 'config/config.php';
 require_once 'config/database.php';
 require_once 'config/setup.php';
+require_once 'helps/helps.php';
+require_once 'helps/mails.php';
 
 //  load libs
 require_once 'libs/Controller.php';

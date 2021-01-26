@@ -1,18 +1,28 @@
 <?php
-class Home extends Controller{
-    public  function __construct(){
-    }
-    public function index()
-    {
-        
-        $this->view('index');
-    }
-    public function about($id){
-        
-        echo "$id that good";
-        $this->view('about');
-    } 
-    public function like(){
-        echo "like page is me";
-    }
+class Home extends Controller
+{
+	public  function __construct()
+	{
+		var_dump($_SESSION['auth'] ->id);
+		var_dump($_SESSION['auth']->username);
+	}
+	public function index()
+	{
+		$data = [
+			'flash' => getFlash(),
+		];
+		$this->view('index', $data);
+	}
+	public function about($id)
+	{
+		$data = [
+			'flash' => getFlash(),
+		];
+		echo "$id that good";
+		$this->view('about', $data);
+	}
+	public function like()
+	{
+		echo "like page is me";
+	}
 }
