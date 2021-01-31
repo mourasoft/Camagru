@@ -30,7 +30,7 @@ if (!function_exists('setFlash')) {
 if (!function_exists('getFlash')) {
 	function getFlash()
 	{
-		$var = $_SESSION['flash'] ? $_SESSION['flash'] : null;
+		$var = isset($_SESSION['flash']) ? $_SESSION['flash'] : null;
 		if ($var) unset($_SESSION['flash']);
 		return $var;
 	}

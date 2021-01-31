@@ -3,8 +3,6 @@ class Home extends Controller
 {
 	public  function __construct()
 	{
-		var_dump($_SESSION['auth'] ->id);
-		var_dump($_SESSION['auth']->username);
 	}
 	public function index()
 	{

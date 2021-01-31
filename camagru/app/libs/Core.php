@@ -13,8 +13,9 @@ class Core{
    public function __construct(){
       
       $url = $this->getUrl();
-      // check in controllers for the first value
-      if(file_exists('./app/controllers/'.ucwords($url[0]).'.php'))
+	  // check in controllers for the first value
+	  $var = isset($url[0]) ? $url[0] : '';
+      if(file_exists('./app/controllers/'.ucwords($var).'.php'))
       {
          //    if exists set as controller
          $this->controller = ucwords($url[0]);

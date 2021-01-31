@@ -10,7 +10,7 @@
 <div class="form">
 	<div class="registration-box">
 		<h1>Reset password</h1>
-		<form class="myreset" action="/users/reset" method="post">
+		<form class="myreset" action="/users/passreset/<?= $data['id']?>" method="post">
 			
 			
 			<div class="field">
