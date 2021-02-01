@@ -11,15 +11,15 @@
 
 <div class= studio>
 	<div class="camera">
-		<div class="vedio">
-			<img src="/img/vedio.jpg" alt="">
+		<div class="video">
+			<video id="video" ></video>
 		</div>
-		<div class="canva">
-			<img src="/img/canva.jpg" alt="">
+		<div class="canva is_primary" >
+			<canvas id="canvas" ></canvas>
 		</div>
-		<div class="canva">
-			<img src="/img/1.png" alt="">
-		</div>
+		<!-- <div class="updat">
+			<canvas id="canvas"></canvas>
+		</div> -->
 	</div>
 	<div class="setting">setting</div>
 	<div class="preview">preview</div>
