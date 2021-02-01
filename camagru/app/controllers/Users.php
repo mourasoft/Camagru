@@ -312,4 +312,7 @@ class Users extends controller
 			$this->view('/users/passreset', $data);
 		}
 	}
+	public function camera(){
+		$this->view('/studio/camera');
+	}
 }

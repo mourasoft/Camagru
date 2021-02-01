@@ -19,7 +19,7 @@
 					<a href="<?= URLROOT ?>/users/login" class="navbar-item">login</a>
 				<?php else : ?>
 
-					<a href="<?= URLROOT ?>/camera" class="navbar-item">Camera</a>
+					<a href="<?= URLROOT ?>/users/camera" class="navbar-item">Camera</a>
 					<a href="<?= URLROOT ?>/edits" class="navbar-item"><?= $_SESSION['auth']->username ?></a>
 					<a href="<?= URLROOT ?>/users/logout" class="navbar-item">logout</a>
 				<?php endif; ?>
