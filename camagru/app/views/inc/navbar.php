@@ -1,13 +1,18 @@
 <nav class="navbar is-dark ">
 	<div class="container">
 		<!-- logo  -->
-
+		<div class="navbar-brand has-shadow">
+			<a href="<?= URLROOT ?>" class="navbar-item">camagru</a>
+			<a class="navbar-burger" id="burger">
+				<span></span>
+				<span></span>
+				<span></span>
+			</a>
+		</div>
 		<!-- menu -->
 
 		<div class="navbar-menu" id="nav-link">
-			<div class="navbar-start">
-				<a href="<?= URLROOT ?>" class="navbar-item">camagru</a>
-			</div>
+		
 			<div class="navbar-end">
 				<?php if (!islogged()) : ?>
 					<a href="<?= URLROOT ?>/users/register" class="navbar-item">register</a>
@@ -22,4 +27,4 @@
 		</div>
 	</div>
 </nav>
-<div class="container">
+<div class="container main">
