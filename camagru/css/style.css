@@ -59,31 +59,35 @@ body {
 .studio {
 	display: flex;
 	flex-direction: column;
-    width: 100%;
-    height: auto;
-    border: 1px solid black;
-    margin: auto;
-    background: #1d2f45;
-    border-radius: 39px;
-}
-.video,.canva,.updat{
-	border: 1px solid black;
-	width: 30%;
 	height: auto;
-	margin:2%;
-
+	width: auto;
+    background: #1d2f45;
+	border-radius: 39px;
+	margin: auto;
 }
-#vedio{
-	border: 1px solid blue;
-}
 
+#video{
+	margin-right: 5vw ;
+	width: 100%;
+	height: 100%;
+	
+}
+#canvas{
+	width: 100%;
+	height: 100%;
+}
+.video{
+	width: 40%;
+	margin-left: 5vw;
+}
+.canva{
+	width:40%;
+	margin-left: 5vw;
+}
 .camera {
+	align-items: center;
 	display: flex;
-	flex-direction: row;
-	justify-content:space-between;
-    /* align-items: flex-start; */
-    /* margin: auto; */
-    border: 1px solid;
+	width: 100%;
     padding: 20px;
 }
 .setting{

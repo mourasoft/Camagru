@@ -9,22 +9,26 @@
 
 
 
-<div class= studio>
+<div class=studio>
 	<div class="camera">
 		<div class="video">
-			<video id="video" ></video>
+			<video id="video"></video>
 		</div>
-		<div class="canva is_primary" >
-			<canvas id="canvas" ></canvas>
+		<div class="canva is_primary">
+			<canvas id="canvas"></canvas>
 		</div>
 		<!-- <div class="updat">
 			<canvas id="canvas"></canvas>
 		</div> -->
 	</div>
-	<div class="setting">setting</div>
-	<div class="preview">preview</div>
+	<div class="setting">
+		<div class="buttons">
+			<button class="button is-info" id="start">start</button>
+			<button class="button is-danger" id="stop">stop</button>
+			<button class="button is-success" id="snap">Take</button>
+		</div>
+		<div class="preview">preview</div>
+	</div>
+
 </div>
-
-
-
-<?php require_once APPROOT . "/views/inc/footer.php"; ?>
+	<?php require_once APPROOT . "/views/inc/footer.php"; ?>
