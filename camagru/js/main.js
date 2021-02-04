@@ -13,21 +13,28 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 	navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
 		video.srcObject = stream;
 		video.play();
-		width = stream.getTracks()[0].getSettings().width ;
+		width = stream.getTracks()[0].getSettings().width;
 		height = stream.getTracks()[0].getSettings().height;
 		canvas.width = width;
 		canvas.height = height;
 	});
 }
 
-document.getElementById("snap").addEventListener("click", () => {	
-	context.drawImage(video, 0, 0, canvas.width  , canvas.height);
-	debug('---->' + width);
-	debug('---->' + height);
+document.getElementById("snap").addEventListener("click", () => {
+	context.drawImage(video, 0, 0, canvas.width, canvas.height);
 });
 
-function debug($var){
+function debug($var) {
 	console.log($var);
 }
 
+var stikers = document.querySelectorAll(".sticker-item");
 
+stikers.forEach(function (item) {
+	item.addEventListener("click", function () {
+		var stickerOnVideo = document.querySelector(".stiker-on-video");
+		stickerOnVideo.className = `visibility: auto`;
+		stickerOnVideo.setAttribute("src", item.src);
+		console.log(item.src);
+	});
+});
