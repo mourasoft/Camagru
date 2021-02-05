@@ -13,7 +13,7 @@
 	<div class="camera">
 		<div class="video">
 			<video id="video"></video>
-			<img src class="stiker-on-video" />
+			<img src class="stiker-on-video" id="selectedstick" />
 		</div>
 		<div class="canva is_primary">
 			<canvas id="canvas"></canvas>
