@@ -315,4 +315,13 @@ class Users extends controller
 	public function camera(){
 		$this->view('/studio/camera');
 	}
+
+	public function saveImage(){
+		if(isset($_POST['imgBase64']) && isset($_POST['emoticon']))
+        {
+			die("ana hna");	
+			redirect("/");		
+		}
+
+	}
 }
