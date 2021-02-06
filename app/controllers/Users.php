@@ -318,17 +318,44 @@ class Users extends controller
 
 	public function saveImage(){
 
-		if(!file_exists(URLROOT."/img"))
-				mkdir(URLROOT."/img/touch/");
-			else 
-				mkdir(URLROOT."/img/makaynch");
+		
 		if(isset($_POST['imgBase64']) && isset($_POST['emoticon']))
         {
-			if(!file_exists("../img"))
-				mkdir("../img/touch/");
-			else 
-				mkdir("../img/makaynch");
+			if(!file_exists('/var/www/html/img/pic'))
+			{
+				chmod('/var/www/html/img/',0777);
+				mkdir('/var/www/html/img/pic',0777);
+				chmod('/var/www/html/img/pic',0777);
+			}
+			$_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $upload_dir = '/var/www/html/img/pic/';
+            $img = $_POST['imgBase64'];
+            $emo = $_POST['emoticon'];
+            $img = str_replace('data:image/png;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $d = base64_decode($img);
+            $file = $upload_dir.mktime().'.png';
+            file_put_contents($file, $d);
+
+            list($srcWidth, $srcHeight) = getimagesize("");
+            $src = imagecreatefrompng($emo);
+            $dest = imagecreatefrompng($file);
+            imagecopy($dest, $src, 11,11, 0, 0, $srcWidth, $srcHeight);
+            imagepng($dest, $file, 9);
+            move_uploaded_file($dest, $file);
+
+            // $data =[
+            //     'user_id'  => $_SESSION['user_id'],
+            //     'path' => $file,
+            // ];
+            // if($this->postModel->save($data)){
+                
+            // }else
+            //     return false;	  
+            //     }	
 		}
+
+
 
 	}
 }

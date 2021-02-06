@@ -19,9 +19,9 @@
 			<canvas id="canvas"></canvas>
 		</div>
 		<div class="sticks">
-			<img class="sticker-item" src="<?= URLROOT ?>/img/stikers/04.png" alt="">
-			<img class="sticker-item" src="<?= URLROOT ?>/img/stikers/05.png" alt="">
-			<img class="sticker-item" src="<?= URLROOT ?>/img/stikers/06.png" alt="">
+			<img class="sticker-item" src="/img/stikers/04.png" alt="">
+			<img class="sticker-item" src="/img/stikers/05.png" alt="">
+			<img class="sticker-item" src="/img/stikers/06.png" alt="">
 		</div>
 
 	</div>

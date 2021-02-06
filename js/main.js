@@ -6,7 +6,7 @@ burgerIcon.addEventListener("click", () => {
 	navbarMenu.classList.toggle("is-active");
 });
 
-if (window.location.href == "http://192.168.99.101:8001/users/camera") {
+if (window.location.href == "http://localhost:8001/users/camera") {
 	var video = document.getElementById("video"),
 		canvas = document.getElementById("canvas"),
 		context = canvas.getContext("2d"),
@@ -32,8 +32,10 @@ if (window.location.href == "http://192.168.99.101:8001/users/camera") {
 		canvas.width = width;
 		canvas.height = height;
 	}
-	// start camera;
+	
 	document.getElementById("start").addEventListener("click", () => {
+		
+		
 		if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
 			navigator.getUserMedia({ video: true }, streamWebCam, throwError);
 		}
@@ -80,11 +82,13 @@ if (window.location.href == "http://192.168.99.101:8001/users/camera") {
 			}
 		});
 	});
-	document.getElementById("save").addEventListener("click", saveImage)
+	document.getElementById("save").addEventListener("click", saveImage , ()=>{
+		document.getElementById("save").setAttribute('disabled', true);
+	})
 	// fonction save image
 	function saveImage() {
 		var dataURL = canvas.toDataURL("image/png");
-		var params = "imgBase64=" + dataURL + "&emoticon=" + stiker;
+		var params = "imgBase64=" + dataURL + "&emoticon=" + stiker.src;
 		var xhr = new XMLHttpRequest();
 		xhr.open("POST", "/users/saveImage");
 
