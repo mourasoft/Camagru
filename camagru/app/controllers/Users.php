@@ -317,10 +317,17 @@ class Users extends controller
 	}
 
 	public function saveImage(){
+
+		if(!file_exists(URLROOT."/img"))
+				mkdir(URLROOT."/img/touch/");
+			else 
+				mkdir(URLROOT."/img/makaynch");
 		if(isset($_POST['imgBase64']) && isset($_POST['emoticon']))
         {
-			die("ana hna");	
-			redirect("/");		
+			if(!file_exists("../img"))
+				mkdir("../img/touch/");
+			else 
+				mkdir("../img/makaynch");
 		}
 
 	}
