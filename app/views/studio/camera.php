@@ -16,7 +16,7 @@
 			<img src class="stiker-on-video" id="selectedstick" />
 		</div>
 		<div class="canva is_primary">
-			<canvas id="canvas"></canvas>
+			<canvas id="canvas"><img  id="output"></canvas>
 		</div>
 		<div class="sticks">
 			<img class="sticker-item" src="/img/stikers/04.png" alt="">
@@ -30,8 +30,8 @@
 			<button class="button is-info" id="start">start</button>
 			<button class="button is-warning" id="pause">pause</button>
 			<button class="button is-danger" id="stop">stop</button>
-			<button class="button is-success" id="snap" >Take</button>
-			<button class="button is-success" id="save" >Save</button>
+			<button class="button is-success" id="snap" disabled>Take</button>
+			<button class="button is-success" id="save" disabled>Save</button>
 			<button class="button is-danger" id="clear">clear</button>
 
 			<div class="file">

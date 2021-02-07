@@ -131,7 +131,7 @@ footer {
 }
 
 .stiker-on-video {
-	/* visibility: hidden; */
+	visibility: hidden;
 	position: absolute;
 	left:10%;
 	width: 10%;
