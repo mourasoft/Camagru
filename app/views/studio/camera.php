@@ -19,9 +19,9 @@
 			<canvas id="canvas"><img  id="output"></canvas>
 		</div>
 		<div class="sticks">
-			<img class="sticker-item" src="/img/stikers/04.png" alt="">
-			<img class="sticker-item" src="/img/stikers/05.png" alt="">
-			<img class="sticker-item" src="/img/stikers/06.png" alt="">
+			<img class="sticker-item" name="04" src="/img/stikers/04.png" alt="04">
+			<img class="sticker-item" name="05"src="/img/stikers/05.png" alt="05">
+			<img class="sticker-item" name="06"src="/img/stikers/06.png" alt="06">
 		</div>
 
 	</div>
@@ -36,7 +36,7 @@
 
 			<div class="file">
 				<label class="file-label">
-					<input class="file-input" type="file" name="resume">
+					<input class="file-input" type="file" name="resume" id="input">
 					<span class="file-cta">
 						<span class="file-icon">
 							<i class="fas fa-upload"></i>

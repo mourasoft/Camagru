@@ -13,7 +13,8 @@ if (document.getElementById("video")) {
     allStikers = document.querySelectorAll(".sticker-item"),
     stikers = document.getElementsByClassName("stiker-on-video"),
     stiker = document.getElementById("selectedstick"),
-    hadimage = 0;
+	hadimage = 0,
+	dataURL;
 
   navigator.getUserMedia =
     navigator.getUserMedia ||
@@ -66,28 +67,32 @@ if (document.getElementById("video")) {
       var stikerheight = stiker.offsetHeight * rh;
       stikerwidth = stiker.offsetWidth * rw;
       stikerleft = stiker.offsetLeft * rw;
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      context.drawImage(stiker, stikerleft, 0, stikerwidth, stikerheight);
+	  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+	  dataURL = canvas.toDataURL("image/png");
+	  document.getElementById('output').setAttribute('src',dataURL);
+
+      context.drawImage(stiker, 0, 0, stikerwidth, stikerheight);
       hadimage = 1;
       document.getElementById("save").removeAttribute("disabled");
     } else alert("please choose a stickers");
   });
 
   document.getElementById("clear").addEventListener("click", () => {
-	context.clearRect(0, 0, canvas.width, canvas.height);
-	hadimage = 0;
-	document.getElementById("save").setAttribute("disabled", true);
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    hadimage = 0;
+    document.getElementById("save").setAttribute("disabled", true);
   });
 
   //put stickers in vedio
   allStikers.forEach(function (item) {
     item.addEventListener("click", function () {
-      if (video.srcObject != null) {
         var stickerOnVideo = document.querySelector(".stiker-on-video");
-        stickerOnVideo.setAttribute("src", item.src);
-        stickerOnVideo.style.visibility = `visible`;
+		stickerOnVideo.setAttribute("src", item.src);
+		stickerOnVideo.setAttribute("name", item.name);
+		if (video.srcObject != null){
+			stickerOnVideo.style.visibility = `visible`;
+		}
         document.getElementById("snap").removeAttribute("disabled");
-      }
     });
   });
 
@@ -97,17 +102,41 @@ if (document.getElementById("video")) {
   // fonction save image
   function saveImage() {
     if (stiker.style.visibility === "visible" && hadimage) {
-      var dataURL = canvas.toDataURL("image/png");
-      var params = "imgBase64=" + dataURL + "&emoticon=" + stiker.src;
-      var xhr = new XMLHttpRequest();
-      xhr.open("POST", "/camera/saveImage");
-
-      xhr.withCredentialfull_canvas = true;
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.send(params);
-      setInterval(function () {
-        window.location.reload();
-      }, 50);
+	//   var dataURL = canvas.toDataURL("image/png");
+	  
+	var params = "imgBase64=" + dataURL + "&emoticon=" + stiker.name;
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "/camera/saveImage");
+	
+	xhr.withCredentialfull_canvas = true;
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.send(params);
+	console.log(params)
+    //   setInterval(function () {
+    //     window.location.reload();
+    //   }, 50);
     } else alert("take picture and chose a stikers");
+  }
+
+  function isImage(file) {
+    const validImageTypes = ["image/jpg", "image/jpeg", "image/png"];
+    const fileType = file["type"];
+    if (validImageTypes.indexOf(fileType)) return true;
+    else return false;
+  }
+  function uploadImage() {
+    uploadImg.addEventListener("change", function (event) {
+      var file = event.target.files[0];
+      var img = new Image();
+
+      img.onload = function () {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        
+      };
+      if (file && isImage(file)) img.src = URL.createObjectURL(file);
+      if (uploadImg.files.lenght != 0)
+        document.getElementById("save").disabled = false;
+    });
   }
 }

@@ -3,7 +3,7 @@
  define('APPROOT', dirname(dirname(__FILE__)));
  //URL root
 
-define('URLROOT','localhost:8001');
+define('URLROOT','192.168.99.101:8001');
 //Site name 
 define('SITENAME', 'Camagru');
 //  DB 
