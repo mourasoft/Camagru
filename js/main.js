@@ -100,7 +100,7 @@ if (document.getElementById("video")) {
       var dataURL = canvas.toDataURL("image/png");
       var params = "imgBase64=" + dataURL + "&emoticon=" + stiker.src;
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "/users/saveImage");
+      xhr.open("POST", "/camera/saveImage");
 
       xhr.withCredentialfull_canvas = true;
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
