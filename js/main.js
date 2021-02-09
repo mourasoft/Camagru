@@ -1,4 +1,4 @@
-// mobile menu
+// mobile navbar 
 const burgerIcon = document.querySelector("#burger");
 const navbarMenu = document.querySelector("#nav-link");
 
@@ -13,16 +13,17 @@ if (document.getElementById("video")) {
     allStikers = document.querySelectorAll(".sticker-item"),
     stikers = document.getElementsByClassName("stiker-on-video"),
     stiker = document.getElementById("selectedstick"),
-	hadimage = 0,
-	dataURL;
+    stickerOnVideo = document.querySelector(".stiker-on-video");
+	  hadimage = 0,
+	  dataURL;
 
   navigator.getUserMedia =
-    navigator.getUserMedia ||
-    navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia ||
-    navigator.oGetUserMedia ||
-    navigator.msGetUserMedia;
-
+  navigator.getUserMedia ||
+  navigator.webkitGetUserMedia ||
+  navigator.mozGetUserMedia ||
+  navigator.oGetUserMedia ||
+  navigator.msGetUserMedia;
+  
   function throwError(e) {
     alert(e.name);
   }
@@ -35,22 +36,22 @@ if (document.getElementById("video")) {
     canvas.width = width;
     canvas.height = height;
   }
-
+  // start camera btn
   document.getElementById("start").addEventListener("click", () => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.getUserMedia({ video: true }, streamWebCam, throwError);
     } else {
-      console.log("getUserMedia not supported");
+      alert("getUserMedia not supported");
     }
   });
-  // pause camera
+  // pause camera btn
   document.getElementById("pause").addEventListener("click", () => {
     if (video.srcObject != null) {
       video.pause();
       document.getElementById("snap").setAttribute("disabled", true);
     }
   });
-  // stop camera
+  // stop camera btn
   document.getElementById("stop").addEventListener("click", (stream) => {
     if (video.srcObject != null) {
       video.srcObject = null;
@@ -59,7 +60,7 @@ if (document.getElementById("video")) {
       document.getElementById("snap").setAttribute("disabled", true);
     }
   });
-  // take photo
+  // take photo btn
   document.getElementById("snap").addEventListener("click", () => {
     if (stiker.style.visibility === "visible") {
       rh = height / video.offsetHeight;
@@ -76,7 +77,7 @@ if (document.getElementById("video")) {
       document.getElementById("save").removeAttribute("disabled");
     } else alert("please choose a stickers");
   });
-
+// clear canvas btn
   document.getElementById("clear").addEventListener("click", () => {
     context.clearRect(0, 0, canvas.width, canvas.height);
     hadimage = 0;
@@ -86,7 +87,6 @@ if (document.getElementById("video")) {
   //put stickers in vedio
   allStikers.forEach(function (item) {
     item.addEventListener("click", function () {
-        var stickerOnVideo = document.querySelector(".stiker-on-video");
 		stickerOnVideo.setAttribute("src", item.src);
 		stickerOnVideo.setAttribute("name", item.name);
 		if (video.srcObject != null){
