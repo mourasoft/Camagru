@@ -4,7 +4,7 @@
 <!-- <link rel="stylesheet" href="<?= URLROOT ?>/css/style.css"> -->
 <?php if ($flash = getFlash()) : ?>
 	<?php foreach ($flash as $type => $msg) : ?>
-		<div class="notification is-<?= $type ?>"><?= $msg ?></div>
+		<div class="notification is-<?= $type ?>"><?= $msg ?><button class="delete"></button></div>
 	<?php endforeach; ?>
 <?php endif; ?>
 <div class="form">

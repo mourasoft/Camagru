@@ -11,11 +11,15 @@ class Camera extends Controller
 	}
 	public function camera()
 	{
-		if (isLogged())
-			$this->view('/studio/camera');
-		else{
+		if (isLogged()) {
+			// get user image
+			$id = $_SESSION['auth']->id;
+			$images = $this->userCamera->getImages($id);
+
+			$this->view('/studio/camera', ['images' => $images]);
+		} else {
 			setFlash("success", "logged in to use camera");
-			redirect('/');
+			redirect('/users/login');
 		}
 	}
 
@@ -38,7 +42,8 @@ class Camera extends Controller
 				$img = str_replace('data:image/png;base64,', '', $img);
 				$img = str_replace(' ', '+', $img);
 				$d = base64_decode($img);
-				$file = $upload_dir . time() . '.png';
+				$fileName = $_SESSION['auth']->id . time() . '.png';
+				$file = $upload_dir . $fileName;
 				list($width, $height) = getimagesize($emo);
 				$newwidth = $width * 1.7;
 				$newheight = ($height / $width) * $newwidth;
@@ -46,22 +51,19 @@ class Camera extends Controller
 				$dest = imagecreatefromstring($d);
 				imagecopyresampled($dest, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 				imagepng($dest, $file, 0);
-				// $dest = file_get_contents($file);;
-				// $dest = ["imageString" => base64_encode($dest)];
-				// echo json_encode($dest);
-				 $data =[
-				    'user_id'  => $_SESSION['auth']->id,
-				    'path' => $file
-				];var_dump($data['path']);
-				if($this->userCamera->saveImage($data)){
+				$data = [
+					'user_id'  => $_SESSION['auth']->id,
+					'path' => $fileName
+				];
+				var_dump($data['path']);
+				if ($this->userCamera->saveImage($data)) {
 					echo "ok sent to data ";
-				}else
-				    return false;	  
-				    	
+				} else
+					return false;
 			}
 		} else {
 			setFlash("success", "logged in to use camera");
-			redirect('/');
+			redirect('/users/login');
 		}
 	}
 }

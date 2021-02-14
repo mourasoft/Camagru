@@ -133,9 +133,9 @@ body {
   opacity: 0.5;
 } */
 
-.single__image button {
+/* .single__image button {
   /* visibility: hidden; */
-  position: absolute;
+  /* position: absolute;
   left: 110px;
   top: 80px;
 }
@@ -145,10 +145,10 @@ body {
   background-color: #fff;
 }
 
-.hover__onMe:hover {
+.hover__onMe:hover { */
   /* visibility: visible; */
-  opacity: 0.5;
-}
+  /* opacity: 0.5;
+} */ 
 
 .stiker-on-video {
   visibility: hidden;
@@ -156,6 +156,15 @@ body {
   left: 0%;
   width: 24%;
 }
-span.file-cta {
+/* span.file-cta {
   display: none;
+} */
+.images{
+	width: 20%;
+}
+.images{
+	position:relative;
+}
+.delete{
+	left: 0px;
 }

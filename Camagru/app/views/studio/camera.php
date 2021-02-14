@@ -3,7 +3,7 @@
 
 <?php if ($flash = getFlash()) : ?>
 	<?php foreach ($flash as $type => $msg) : ?>
-		<div class="notification is-<?= $type ?>"><?= $msg ?></div>
+		<div id="notif" class="notification is-<?= $type ?>"><?= $msg ?><button class="delete"></button></div>
 	<?php endforeach; ?>
 <?php endif; ?>
 
@@ -28,13 +28,49 @@
 	</div>
 	<div class="setting">
 		<div class="buttons">
-			<button class="button is-info" id="start">start</button>
-			<button class="button is-warning" id="pause">pause</button>
-			<button class="button is-danger" id="stop">stop</button>
-			<button class="button is-success" id="snap">Take</button>
-			<button class="button is-success" id="save">Save</button>
-			<button class="button is-danger" id="clear">clear</button>
-			<button class="button is-success" id="upload">Upload</button>
+			<button class="button is-info" id="start">
+				<span class="icon is-small">
+					<i class="fas fa-play"></i>
+				</span>
+				<span>start</span>
+			</button>
+			<button class="button is-warning" id="pause">
+				<span class="icon is-small">
+					<i class="fas fa-pause"></i>
+				</span>
+				<span>pause</span>
+			</button>
+			<button class="button is-danger" id="stop">
+				<span class="icon is-small">
+					<i class="fas fa-stop"></i>
+				</span>
+				<span>
+					stop
+				</span> </button>
+			<button class="button is-success" id="snap">
+				<span class="icon is-small">
+					<i class="fas fa-camera"></i>
+				</span>
+				<span>Take</span>
+			</button>
+			<button class="button is-success" id="save">
+				<span class="icon is-small">
+					<i class="fas fa-check"></i>
+				</span>
+				<span>Save</span>
+			</button>
+			<button class="button is-danger" id="clear">
+				<span class="icon is-small">
+					<i class="fas fa-broom"></i>
+				</span>
+				<span>clear</span>
+			</button>
+			<button class="button is-success" id="upload">
+				<span class="icon is-small">
+					<i class="fas fa-upload"></i>
+				</span>
+				<span>Upload</span>
+			</button>
 
 			<div class="file">
 				<label class="file-label">
@@ -52,13 +88,13 @@
 
 		</div>
 		<div class="preview">
-			<div class="loaded__images">
-				<div class="single__image">
-					<div style="color: #000;">tach</div>
-					<img class="hover__onMe" src="https://sicilyhorseriding.com/wp-content/uploads/2017/12/300x200.png" alt="">
-					<button class="button is-danger">Delete</button>
-				</div>
+
+			<?php foreach ($images as $image) : ?>
+				<div>
+				<img class="images" src="<?= URLROOT ?>/img/pic/<?php echo $image->path ?>" alt="">
+				<button class="delete"></button></img>
 			</div>
+			<?php endforeach; ?>
 		</div>
 	</div>
 

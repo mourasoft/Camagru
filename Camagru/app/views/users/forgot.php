@@ -3,7 +3,7 @@
 
 <?php if ($flash = getFlash()) : ?>
 	<?php foreach ($flash as $type => $msg) : ?>
-		<div class="notification is-<?= $type ?>"><?= $msg ?></div>
+		<div id="notif" class="notification is-<?= $type ?>"><?= $msg ?></div>
 	<?php endforeach; ?>
 <?php endif; ?>
 
