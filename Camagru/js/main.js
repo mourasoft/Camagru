@@ -6,15 +6,17 @@ burgerIcon.addEventListener("click", () => {
   navbarMenu.classList.toggle("is-active");
 });
 // notification delete
-document.addEventListener('DOMContentLoaded', () => {
-	(document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-	  const $notification = $delete.parentNode;
-  
-	  $delete.addEventListener('click', () => {
-		$notification.parentNode.removeChild($notification);
-	  });
-	});
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  (document.querySelectorAll(".notification .delete") || []).forEach(
+    ($delete) => {
+      const $notification = $delete.parentNode;
+
+      $delete.addEventListener("click", () => {
+        $notification.parentNode.removeChild($notification);
+      });
+    }
+  );
+});
 
 if (document.getElementById("video")) {
   var video = document.getElementById("video"),
@@ -69,8 +71,8 @@ if (document.getElementById("video")) {
   // pause camera btn
   btnPause.addEventListener("click", () => {
     if (video.srcObject != null) {
-	  video.pause();
-	  takeBtn.disabled = true;
+      video.pause();
+      takeBtn.disabled = true;
     }
   });
   // stop camera btn
@@ -126,20 +128,24 @@ if (document.getElementById("video")) {
     if (!(output.src === "") && dataURL && stiker.name) {
       var params = "imgBase64=" + dataURL + "&emoticon=" + stiker.name;
       var xhr = new XMLHttpRequest();
-    //   xhr.onload = () => {
-    //     console.log(JSON.parse(xhr.response));
-    //   };
+      //   xhr.onload = () => {
+      //     console.log(JSON.parse(xhr.response));
+      //   };
       xhr.open("POST", "/camera/saveImage");
       xhr.withCredentialfull_canvas = true;
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    //   xhr.responseType = "json";
+      xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+				window.location.reload();
+			}
+		};
       xhr.send(params);
       //   setInterval(function () {
       //     window.location.reload();
       //   }, 50);
     } else alert("take picture and chose a stikers");
   }
-// upload image 
+  // upload image
   btnUploid.addEventListener("click", () => {
     var uploadBtn = document.querySelector("span.file-cta");
     uploadImg.value = "";
@@ -163,8 +169,8 @@ if (document.getElementById("video")) {
               context.drawImage(myImage, 0, 0, canvas.width, canvas.height);
               dataURL = canvas.toDataURL("image/png");
               output.setAttribute("src", dataURL);
-			  context.drawImage(stiker, 0, 0, stikerwidth, stikerheight);
-			  btnSave.disabled = false;
+              context.drawImage(stiker, 0, 0, stikerwidth, stikerheight);
+              btnSave.disabled = false;
             };
           };
         } else alert("is not valid image");
@@ -173,4 +179,19 @@ if (document.getElementById("video")) {
       alert("please select a sticker");
     }
   });
+  function delete_img(id, image) {
+	var params = "id=" + id + "&image=" + image;
+	var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/camera/deleteImage");
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+				window.location.reload();
+			}
+		};
+	xhr.send(params);
+    //   setInterval(function () {
+    //     window.location.reload();
+    //   }, 50);
+  }
 }

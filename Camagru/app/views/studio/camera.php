@@ -90,10 +90,13 @@
 		<div class="preview">
 
 			<?php foreach ($images as $image) : ?>
-				<div>
-				<img class="images" src="<?= URLROOT ?>/img/pic/<?php echo $image->path ?>" alt="">
-				<button class="delete"></button></img>
-			</div>
+				<div class="imageStudio">
+					<img class="images" src="<?= URLROOT ?>/img/pic/<?= $image->path ?>" alt="">
+					<span class="icon is-small">
+						<i onclick="delete_img('<?= $image->id ?>','<?= $image->path ?>')" id="removeImage" class="fas fa-trash-alt is-red"></i>
+					</span>
+					<!-- <button  class="delete"></button> -->
+				</div>
 			<?php endforeach; ?>
 		</div>
 	</div>

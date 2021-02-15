@@ -66,4 +66,16 @@ class Camera extends Controller
 			redirect('/users/login');
 		}
 	}
+	public function deleteImage()
+	{
+		$id_user = $_SESSION['auth']->id;
+		if(isset($_POST['id']) && isset($_POST['image']))
+		{
+			$id = $_POST['id'];
+			$image = $_POST['image'];
+			$this->userCamera->deleteImage($id, $id_user, $image);
+			unlink("/var/www/html/img/pic/".$image);
+			echo json_encode($id_user);
+		}
+	}
 }

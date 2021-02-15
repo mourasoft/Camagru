@@ -21,5 +21,14 @@ class Studio
 		$this->db->bind('id_user',$id);
 		return $this->db->resultSet();
 	}
+
+	public function deleteImage($id, $id_user, $image)
+	{
+		$this->db->query("DELETE  FROM `images` WHERE `id`= :id AND `id_user`=:id_user AND `path` = :path");
+		$this->db->bind(':id', $id);
+		$this->db->bind(':id_user',$id_user);
+		$this->db->bind(':path',$image);
+		$this->db->execute();	
+	}
     
 }
