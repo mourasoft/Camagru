@@ -122,7 +122,7 @@ if (document.getElementById("video")) {
     });
   });
   //   save image btn
-  btnSave.addEventListener("click", saveImage, () => {});
+  btnSave.addEventListener("click", saveImage);
   // fonction save image
   function saveImage() {
     if (!(output.src === "") && dataURL && stiker.name) {
@@ -134,11 +134,11 @@ if (document.getElementById("video")) {
       xhr.open("POST", "/camera/saveImage");
       xhr.withCredentialfull_canvas = true;
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-				window.location.reload();
-			}
-		};
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          window.location.reload();
+        }
+      };
       xhr.send(params);
       //   setInterval(function () {
       //     window.location.reload();
@@ -180,18 +180,45 @@ if (document.getElementById("video")) {
     }
   });
   function delete_img(id, image) {
-	var params = "id=" + id + "&image=" + image;
-	var xhr = new XMLHttpRequest();
+    var params = "id=" + id + "&image=" + image;
+    var xhr = new XMLHttpRequest();
     xhr.open("POST", "/camera/deleteImage");
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-				window.location.reload();
-			}
-		};
-	xhr.send(params);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        window.location.reload();
+      }
+    };
+    xhr.send(params);
     //   setInterval(function () {
     //     window.location.reload();
     //   }, 50);
   }
+}
+
+var likeBtn = document.querySelectorAll(".fas.fa-2x.fa-heart");
+var postedImage = document.querySelectorAll(".card-image img");
+
+likeBtn.forEach(function (item, index) {
+	item.addEventListener("click", function () {
+		// console.log(postedImage[index].src);
+		var path = postedImage[index].src;
+		var imageName = path.split("/").reverse()[0];
+		setlike(imageName);
+	});
+});
+
+function setlike(id) {
+	id = "id=" + id
+	// console.log(id)
+	var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/home/setLike");
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+		// window.location.reload();
+		console.log(this.responseText)
+      }
+    };
+    xhr.send(id);
 }

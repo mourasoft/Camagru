@@ -28,14 +28,30 @@ try {
 		`reset_token` VARCHAR(40) NULL ,
 		`reset_at` DATETIME NULL
         )";
-	
 	$db->exec($sql);
+
 	$sql = "CREATE TABLE IF NOT EXISTS `images`
 	(
 		`id` INT(11) AUTO_INCREMENT PRIMARY KEY ,
 		`id_user` INT(11) NOT NULL ,
 		`path` VARCHAR(255) NOT NULL 
-	)"; 
+	)";
+	$db->exec($sql);
+
+	$sql = "CREATE TABLE IF NOT EXISTS `likes` (
+		image_id int not null,
+		user_id int not null,
+		CONSTRAINT img_fk FOREIGN KEY image_id REFERENCES images(id),
+		CONSTRAINT user_fk FOREIGN KEY user_id REFERENCES users(id)
+	  )";
+	$db->exec($sql);
+
+	$sql = "CREATE TABLE IF NOT EXISTS `posts`
+	(
+		`id_comment` INT(11) AUTO_INCREMENT PRIMARY KEY ,
+		`id_user` INT(11) NOT NULL ,
+		`content` VARCHAR(255) NOT NULL
+	)";
 	$db->exec($sql);
 } catch (PDOException $e) {
 	echo $e->getMessage();

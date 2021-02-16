@@ -3,7 +3,7 @@ class Camera extends Controller
 {
 	public function __construct()
 	{
-		$this->userCamera = $this->model('Studio');;
+		$this->userCamera = $this->model('Studio');
 	}
 	public function index()
 	{
@@ -25,9 +25,9 @@ class Camera extends Controller
 
 	public function saveImage()
 	{
+		// var_dump($_POST);
+		// die();
 		if (isLogged()) {
-
-
 			if (isset($_POST['imgBase64']) && isset($_POST['emoticon'])) {
 
 				if (!file_exists('/var/www/html/img/pic')) {
@@ -69,12 +69,11 @@ class Camera extends Controller
 	public function deleteImage()
 	{
 		$id_user = $_SESSION['auth']->id;
-		if(isset($_POST['id']) && isset($_POST['image']))
-		{
+		if (isset($_POST['id']) && isset($_POST['image'])) {
 			$id = $_POST['id'];
 			$image = $_POST['image'];
 			$this->userCamera->deleteImage($id, $id_user, $image);
-			unlink("/var/www/html/img/pic/".$image);
+			unlink("/var/www/html/img/pic/" . $image);
 			echo json_encode($id_user);
 		}
 	}

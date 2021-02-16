@@ -30,5 +30,10 @@ class Studio
 		$this->db->bind(':path',$image);
 		$this->db->execute();	
 	}
+	public function getAllImage(){
+		$this->db->query("SELECT `images`.`id`, `images`.`id_user`, `images`.`path`,`users`.`username` from `images` JOIN `users` WHERE `images`.`id_user` = `users`.id ORDER BY `images`.`id` DESC; ");
+		return $this->db->resultSet();
+	}
+	
     
 }

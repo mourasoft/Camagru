@@ -3,22 +3,19 @@ class Home extends Controller
 {
 	public  function __construct()
 	{
+		$this->userCamera = $this->model('Studio');
 	}
 	public function index()
-	{
-		
-		$this->view('index');
+	{	
+		$posts = $this->userCamera->getAllImage();
+		$this->view('index', ['posts'=>$posts]);
 	}
-	public function about($id)
-	{
-		$data = [
-			'flash' => getFlash(),
-		];
-		echo "$id that good";
-		$this->view('about', $data);
+
+	public function setLike(){
+		if(isset($_POST['id'])){
+			
+		}
 	}
-	public function like()
-	{
-		echo "like page is me";
-	}
+	
+
 }
