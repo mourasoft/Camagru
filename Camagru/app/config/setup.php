@@ -39,16 +39,17 @@ try {
 	$db->exec($sql);
 
 	$sql = "CREATE TABLE IF NOT EXISTS `likes` (
-		image_id int not null,
-		user_id int not null,
-		CONSTRAINT img_fk FOREIGN KEY image_id REFERENCES images(id),
-		CONSTRAINT user_fk FOREIGN KEY user_id REFERENCES users(id)
-	  )";
+	 	`image_id` VARCHAR(255) NOT NULL,
+	 	`user_id` int not null
+	 	-- CONSTRAINT img_fk FOREIGN KEY (image_id) REFERENCES images(id_user),
+	 	-- CONSTRAINT user_fk FOREIGN KEY (user_id) REFERENCES users(id)
+	   )";
 	$db->exec($sql);
 
 	$sql = "CREATE TABLE IF NOT EXISTS `posts`
 	(
 		`id_comment` INT(11) AUTO_INCREMENT PRIMARY KEY ,
+		`image_pat`	VARCHAR(255) NOT NULL,
 		`id_user` INT(11) NOT NULL ,
 		`content` VARCHAR(255) NOT NULL
 	)";

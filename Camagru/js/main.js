@@ -198,27 +198,77 @@ if (document.getElementById("video")) {
 
 var likeBtn = document.querySelectorAll(".fas.fa-2x.fa-heart");
 var postedImage = document.querySelectorAll(".card-image img");
+var sentComment = document.querySelectorAll(".icon.is-large.is-right");
 
-likeBtn.forEach(function (item, index) {
-	item.addEventListener("click", function () {
-		// console.log(postedImage[index].src);
-		var path = postedImage[index].src;
-		var imageName = path.split("/").reverse()[0];
-		setlike(imageName);
-	});
+sentComment.forEach(function (item, index) {
+  item.addEventListener("click", function () {
+    // console.log(postedImage[index].src);
+    var path = postedImage[index].src;
+    var imageName = path.split("/").reverse()[0];
+    console.log("clicked");
+    var content = document.querySelectorAll(".input.is-rounded")[index];
+				content = content.value.trim()
+    if (content) {
+			setComment(imageName, index,content );
+		}
+  });
 });
 
-function setlike(id) {
-	id = "id=" + id
-	// console.log(id)
-	var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/home/setLike");
-    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-		// window.location.reload();
-		console.log(this.responseText)
+likeBtn.forEach(function (item, index) {
+  item.addEventListener("click", function () {
+    // console.log(postedImage[index].src);
+    var path = postedImage[index].src;
+    var imageName = path.split("/").reverse()[0];
+
+    setlike(imageName, index);
+  });
+});
+
+function setlike(id, index) {
+  id = "id=" + id;
+  // console.log(id)
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      var res = JSON.parse(this.responseText);
+      if (res.status) {
+        if (res.liked) {
+          likeBtn[index].style.color = `crimson`;
+        } else {
+          likeBtn[index].style.color = ``;
+        }
+      } else {
+        window.location = res.redirect;
       }
-    };
-    xhr.send(id);
+    }
+  };
+  xhr.open("POST", "/home/setLike");
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send(id);
+}
+
+function setComment(id_img, index,content) {
+	comment = "img=" + id_img + "&comment=" + content;
+	console.log(comment)
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+        // var res = JSON.parse(this.responseText);
+        // if (res.img) {
+        //   console.log("rani kayna")
+        //   } else {
+        //     likeBtn[index].style.color = ``;
+        //   }
+        // } else {
+        //   window.location = res.redirect;
+        // }
+				// console.log(res);
+				// console.log("ana khedam")
+				console.log(this.responseText)
+				console.log(index)
+		}
+  };
+  xhr.open("POST", "/home/setComment");
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send(comment);
 }

@@ -31,6 +31,7 @@
 			</div>
 
 		</div>
+		<?php if(isLogged()):?>
 		<div class="content">
 			<div class="control has-icons-right">
 				<input class="input is-rounded" type="text" placeholder="comment...">
@@ -39,6 +40,7 @@
 					<i class="fas fa-paper-plane"></i>
 				</span>
 		</div>
+		<?php endif;?>
 		<hr class="is-black" />
 		<div class="comment">
 			<h2>@alaoui</h2>
