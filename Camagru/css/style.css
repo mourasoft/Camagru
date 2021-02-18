@@ -83,7 +83,7 @@ body {
   width: auto;
   background: #1d2f45;
   border-radius: 15px;
-  margin: auto;
+  margin: 10px;
 }
 .control {
   flex-basis: 90% !important;

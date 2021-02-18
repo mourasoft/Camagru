@@ -60,7 +60,8 @@ class Camera extends Controller
 					echo "ok sent to data ";
 				} else
 					return false;
-			}
+			}else
+				redirect('/camera');
 		} else {
 			setFlash("success", "logged in to use camera");
 			redirect('/users/login');
@@ -75,6 +76,8 @@ class Camera extends Controller
 			$this->userCamera->deleteImage($id, $id_user, $image);
 			unlink("/var/www/html/img/pic/" . $image);
 			echo json_encode($id_user);
-		}
+		}else
+			redirect('/camera');
+	
 	}
 }

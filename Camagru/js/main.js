@@ -207,10 +207,10 @@ sentComment.forEach(function (item, index) {
     var imageName = path.split("/").reverse()[0];
     console.log("clicked");
     var content = document.querySelectorAll(".input.is-rounded")[index];
-				content = content.value.trim()
+    content = content.value.trim();
     if (content) {
-			setComment(imageName, index,content );
-		}
+      setComment(imageName, index, content);
+    }
   });
 });
 
@@ -226,7 +226,6 @@ likeBtn.forEach(function (item, index) {
 
 function setlike(id, index) {
   id = "id=" + id;
-  // console.log(id)
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -237,8 +236,11 @@ function setlike(id, index) {
         } else {
           likeBtn[index].style.color = ``;
         }
+        if (res.notif) {
+          sendmail(res.email, "like");
+        }
       } else {
-        window.location = res.redirect;
+        window.location.href = "/users/login";
       }
     }
   };
@@ -247,28 +249,35 @@ function setlike(id, index) {
   xhr.send(id);
 }
 
-function setComment(id_img, index,content) {
-	comment = "img=" + id_img + "&comment=" + content;
-	console.log(comment)
+function setComment(id_img, index, content) {
+  comment = "img=" + id_img + "&comment=" + content;
+  console.log(comment);
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-        // var res = JSON.parse(this.responseText);
-        // if (res.img) {
-        //   console.log("rani kayna")
-        //   } else {
-        //     likeBtn[index].style.color = ``;
-        //   }
-        // } else {
-        //   window.location = res.redirect;
-        // }
-				// console.log(res);
-				// console.log("ana khedam")
-				console.log(this.responseText)
-				console.log(index)
-		}
+      var res = JSON.parse(this.responseText);
+      if (res.img) {
+        
+      } else {
+        likeBtn[index].style.color = ``;
+      }
+      if (res.notif) {
+        sendmail(res.email, "comment");
+      }
+    } else {
+      window.location = res.redirect;
+    }
   };
+
   xhr.open("POST", "/home/setComment");
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.send(comment);
+}
+
+function sendmail(email, action) {
+  var xhr = new XMLHttpRequest();
+  var email = "email=" + email + "&action=" + action;
+  xhr.open("POST", "/home/emailing");
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhr.send(email);
 }

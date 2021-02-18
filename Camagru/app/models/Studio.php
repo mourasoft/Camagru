@@ -72,4 +72,10 @@ class Studio
 		$this->db->bind(':id_user', $id_user);
 		return $this->db->execute();
 	}
+	
+	public function getNotif($img){
+		$this->db->query("SELECT users.email, users.notif FROM `images`  JOIN users ON images.id_user = users.id where images.path = :img");
+		$this->db->bind(':img', $img);
+		return $this->db->single();
+	}
 }

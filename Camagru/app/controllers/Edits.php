@@ -23,6 +23,7 @@ class Edits extends Controller
 					'old_password_err' => ''
 				];
 				// valid password
+				
 				if (empty($_POST['new_password'])) {
 					$data['new_password_err'] = "Please enter your  new password.";
 				} else {
@@ -83,10 +84,13 @@ class Edits extends Controller
 					'username' => $_POST['username'],
 					'email' => $_POST['email'],
 					'password' => $_POST['password'],
+					'notif' => isset($_POST['notif']) ? 1 : 0,
 					'username_err' => '',
 					'email_err' => '',
-					'password_err' => '',
+					'password_err' => ''
 				];
+				printf($data['notif']);
+				echo"ana hna";
 				$id = $_SESSION['auth']->id;
 				if (empty($_POST['username'])) {
 					$data['username_err'] = "Please enter your username.";
@@ -96,7 +100,6 @@ class Edits extends Controller
 					}
 					// check username if was used
 					else {
-
 						if ($this->userModel->checkUsername($data['username'], $id)) {
 
 							$data['username_err'] = "Username alerdy taken.";
@@ -127,7 +130,8 @@ class Edits extends Controller
 						$data['password_err'] = 'wrong password';
 					}
 				}
-
+				// checkbox 
+				// if()
 				if (empty($data['username_err']) && empty($data['email_err']) && empty($data['password_err'])) {
 
 					$data['username'] = strtolower($data['username']);
@@ -142,9 +146,11 @@ class Edits extends Controller
 					$this->view('/edit/profil', $data);
 				}
 			} else
+			
 				$data = [
 					'username' => $_SESSION['auth']->username,
 					'email' => $_SESSION['auth']->email,
+					'notif' => $_SESSION['auth']->notif,
 					'password' => '',
 					'username_err' => '',
 					'email_err' => '',

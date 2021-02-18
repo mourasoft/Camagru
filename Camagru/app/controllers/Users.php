@@ -115,8 +115,7 @@ class Users extends controller
 	}
 	public function login()
 	{
-		// if (islogged()) redirect('/');
-
+		 if (islogged()) redirect('/');
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$data = [
 				'login' => isset($_POST['login']) ? $_POST['login'] : "",
@@ -146,7 +145,7 @@ class Users extends controller
 				if (!$var->confirmed_at) {
 					setFlash('danger', 'Please Verify Your Account Email');
 					redirect('/users/login');
-					die('ana hna');
+					// die('ana hna');
 				} else {
 					// creat a session to a user 
 					$_SESSION['auth'] = $var;
@@ -168,22 +167,24 @@ class Users extends controller
 	}
 	public function verify($id = '', $token = '')
 	{
-		// session_start();
 		if (islogged()) redirect('/');
-		if (is_numeric($id) && (strlen($token) == 40)) {
-			$token_very = $this->userModel->token_very($id);
-			if ($token_very == $token) {
-				$this->userModel->tokenUpdate($id);
-				setFlash("success", "Your Account Is Now Active Thank you for verifying your email address.");
-				redirect("/users/login");
+		if(isset($id) && isset($token)){
+			echo "ana jit";
+			if (is_numeric($id) && (strlen($token) == 40)) {
+				$token_very = $this->userModel->token_very($id);
+				if ($token_very == $token) {
+					$this->userModel->tokenUpdate($id);
+					setFlash("success", "Your Account Is Now Active Thank you for verifying your email address.");
+					redirect("/users/login");
+				} else {
+					setFlash("danger", "Token Alerdy Checked Or Not Valid.");
+					redirect("/users/login");
+				}
 			} else {
+	
 				setFlash("danger", "Token Alerdy Checked Or Not Valid.");
-				redirect("users/login");
+				redirect("/users/register");
 			}
-		} else {
-
-			setFlash("danger", "Token Alerdy Checked Or Not Valid.");
-			redirect("users/register");
 		}
 	}
 	public function logout()
@@ -258,8 +259,8 @@ class Users extends controller
 			}
 		} else {
 
-			setFlash('danger', 'ana hna ');
-			redirect('/');
+			// setFlash('danger', 'ana hna ');
+			// redirect('/');
 		}
 	}
 
@@ -268,8 +269,8 @@ class Users extends controller
 		if (islogged()) redirect('/');
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$data = [
-				'password' => isset($_POST['password']) ? $_POST['password'] : "",
-				'c_pasword' => isset($_POST['c_password']) ? $_POST['c_password'] : "",
+				'password' => isset($_POST['password']) /*? $_POST['password'] : ""*/,
+				'c_pasword' => isset($_POST['c_password'])/* ? $_POST['c_password'] : ""*/,
 				'password_err' => '',
 				'c_password_err' => '',
 				'id' => $id

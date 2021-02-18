@@ -19,15 +19,16 @@ $db->exec($sql);
 try {
 	$sql = "CREATE TABLE IF NOT EXISTS `users` 
     ( 
-        `id` INT(11) AUTO_INCREMENT PRIMARY KEY, 
-        `username` VARCHAR(25) NOT NULL , 
-        `email` VARCHAR(60) NOT NULL , 
-        `password` VARCHAR(255) NOT NULL ,
+    `id` INT(11) AUTO_INCREMENT PRIMARY KEY, 
+    `username` VARCHAR(25) NOT NULL , 
+    `email` VARCHAR(60) NOT NULL , 
+    `password` VARCHAR(255) NOT NULL ,
 		`confirmation_token` VARCHAR(255) NULL ,
 		`confirmed_at` DATETIME NULL ,
 		`reset_token` VARCHAR(40) NULL ,
-		`reset_at` DATETIME NULL
-        )";
+		`reset_at` DATETIME NULL,
+		`notif` tinyint(1) NOT NULL DEFAULT '1'
+  )";
 	$db->exec($sql);
 
 	$sql = "CREATE TABLE IF NOT EXISTS `images`
@@ -51,7 +52,7 @@ try {
 		`id_comment` INT(11) AUTO_INCREMENT PRIMARY KEY ,
 		`image_pat`	VARCHAR(255) NOT NULL,
 		`id_user` INT(11) NOT NULL ,
-		`content` VARCHAR(255) NOT NULL
+		`content` TEXT NOT NULL
 	)";
 	$db->exec($sql);
 } catch (PDOException $e) {

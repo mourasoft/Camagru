@@ -22,8 +22,8 @@
 						</span>
 					</div>
 					<p class="help is-danger"><?php if ($data['username_err']) {
-													echo $data['username_err'];
-												} ?></p>
+																			echo $data['username_err'];
+																		} ?></p>
 				</div>
 				<div class="field">
 					<label>Email: *</label>
@@ -34,8 +34,8 @@
 						</span>
 					</div>
 					<p class="help is-danger"><?php if ($data['email_err']) {
-													echo $data['email_err'];
-												} ?></p>
+																			echo $data['email_err'];
+																		} ?></p>
 				</div>
 				<div class="field">
 					<label>Password: *</label>
@@ -46,13 +46,17 @@
 						</span>
 					</div>
 					<p class="help is-danger"><?php if ($data['password_err']) {
-													echo $data['password_err'];
-												} ?></p>
-				</div>	
+																			echo $data['password_err'];
+																		} ?></p>
+				</div>
+				<label class="checkbox">
+					<input type="checkbox" name="notif"  <?php if($data['notif'] ) echo 'checked';?>>
+					Notifications in your email
+				</label>
 				<div class="control is-justify-content-flex-start">
 					<input type="submit" value="Edit It" class="button is-rounded is-medium is-fullwidth">
 				</div>
-				<div><a href=<?=URLROOT ."/edits/pass"?>>Change My Password</a></div>
+				<div><a href=<?= URLROOT . "/edits/pass" ?>>Change My Password</a></div>
 
 
 			</form>
