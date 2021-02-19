@@ -10,30 +10,28 @@
 <div class="form">
 	<div class="registration-box">
 		<h1>Reset password</h1>
-		<form class="myreset" action="users/passreset/<?= $data['id']?>" method="post">
-			
-			
+		<form class="myreset" action="/users/passreset/<?php if (isset($data['id'])) echo $data['id'] ?>" method="post">
 			<div class="field">
 				<label>Password</label>
 				<div class="control has-icons-left has-icons-right">
-					<input class="input" name="password" type="password" value="<?php if (!$data['password_err']) echo $data['password']; ?>">
+					<input class="input" name="password" type="password" value="<?php if (!isset($data['password_err'])) echo $data['password']; ?>">
 					<span class="icon is-small is-left">
 						<i class="fas fa-lock"></i>
 					</span>
 				</div>
-				<p class="help is-danger"><?php if ($data['password_err']) {
+				<p class="help is-danger"><?php if (isset($data['password_err'])) {
 												echo $data['password_err'];
 											} ?></p>
 			</div>
 			<div class="field">
 				<label>Confirm Password</label>
 				<div class="control has-icons-left has-icons-right">
-					<input class="input" name="c_password" type="password" value="<?php if (!$data['c_password_err']) echo $data['c_password']; ?>">
+					<input class="input" name="c_password" type="password" value="<?php if (!isset($data['c_password_err'])) echo $data['c_password']; ?>">
 					<span class="icon is-small is-left">
 						<i class="fas fa-lock"></i>
 					</span>
 				</div>
-				<p class="help is-danger"><?php if ($data['c_password_err']) {
+				<p class="help is-danger"><?php if (isset($data['c_password_err'])) {
 												echo $data['c_password_err'];
 											} ?></p>
 			</div>

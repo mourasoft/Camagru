@@ -205,7 +205,6 @@ sentComment.forEach(function (item, index) {
     // console.log(postedImage[index].src);
     var path = postedImage[index].src;
     var imageName = path.split("/").reverse()[0];
-    console.log("clicked");
     var content = document.querySelectorAll(".input.is-rounded")[index];
     content = content.value.trim();
     if (content) {
@@ -251,21 +250,19 @@ function setlike(id, index) {
 
 function setComment(id_img, index, content) {
   comment = "img=" + id_img + "&comment=" + content;
-  console.log(comment);
+
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      var res = JSON.parse(this.responseText);
-      if (res.img) {
-        
-      } else {
-        likeBtn[index].style.color = ``;
-      }
+       var res = JSON.parse(this.responseText);
+    //   if (res.img) {
+    //      
+    //   } else {
+    //     likeBtn[index].style.color = ``;
+    //   }
       if (res.notif) {
         sendmail(res.email, "comment");
       }
-    } else {
-      window.location = res.redirect;
     }
   };
 

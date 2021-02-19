@@ -24,22 +24,22 @@ class Edits extends Controller
 				];
 				// valid password
 				
-				if (empty($_POST['new_password'])) {
+				if (empty($_POST['new_password']) || is_array($_POST['new_password'])) {
 					$data['new_password_err'] = "Please enter your  new password.";
 				} else {
-					// if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['password'])) {
-					// 	$data['password_err'] = "Please enter valid password.";
-					// }
+					if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['password'])) {
+						$data['password_err'] = "Please enter valid password.";
+					}
 				}
 
 				// valid confirme password
-				if (empty($_POST['cn_password'])) {
+				if (empty($_POST['cn_password']) || is_array($_POST['cn_password'])) {
 					$data['cn_password_err'] = "Please enter confirme password.";
 				} else {
 					if ($_POST['new_password'] != $_POST['cn_password']) $data['cn_password_err'] = "Please Confirme Your Password.";
 				}
 				// not empty password
-				if (empty($data['oldpassword'])) {
+				if (empty($data['oldpassword']) || is_array($_POST['oldpassword'])) {
 					$data['old_password_err'] = 'Please Enter Your Old Password';
 				} else {
 					$hash = $_SESSION['auth']->password;
@@ -89,10 +89,9 @@ class Edits extends Controller
 					'email_err' => '',
 					'password_err' => ''
 				];
-				printf($data['notif']);
-				echo"ana hna";
+				
 				$id = $_SESSION['auth']->id;
-				if (empty($_POST['username'])) {
+				if (empty($_POST['username']) || is_array($_POST['username'])) {
 					$data['username_err'] = "Please enter your username.";
 				} else {
 					if (!preg_match('/^[0-9A-Za-z_]{4,25}$/', $_POST['username'])) {
@@ -107,7 +106,7 @@ class Edits extends Controller
 					}
 				}
 				// valid email
-				if (empty($_POST['email'])) {
+				if (empty($_POST['email']) || is_array($_POST['email'])) {
 					$data['email_err'] = "Please enter your email.";
 				} else {
 					if (!preg_match('/^([a-z._0-9-]+)@([a-z0-9]+[.]?)*([a-z0-9])(\.[a-z]{2,4})$/mi', $_POST['email'])) {
@@ -122,7 +121,7 @@ class Edits extends Controller
 					}
 				}
 				// not empty password
-				if (empty($data['password'])) {
+				if (empty($data['password']) || is_array($_POST['password'])) {
 					$data['password_err'] = 'Please Enter Your Password';
 				} else {
 					$hash = $_SESSION['auth']->password;
@@ -131,7 +130,7 @@ class Edits extends Controller
 					}
 				}
 				// checkbox 
-				// if()
+				
 				if (empty($data['username_err']) && empty($data['email_err']) && empty($data['password_err'])) {
 
 					$data['username'] = strtolower($data['username']);

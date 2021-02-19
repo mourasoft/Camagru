@@ -14,13 +14,12 @@ class Users extends controller
 	public function register()
 	{
 		if (islogged()) redirect('/');
-
 		// check for POST
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			//process form
 			$data = [
-				'username' => trim(isset($_POST['username']) ? $_POST['username'] : ""),
-				'email' => trim(isset($_POST['email']) ?  $_POST['email'] : ""),
+				'username' => trim(isset($_POST['username'])) ? $_POST['username'] : "",
+				'email' => trim(isset($_POST['email'])) ?  $_POST['email'] : "",
 				'password' => isset($_POST['password']) ? $_POST['password'] : "",
 				'c_password' => isset($_POST['c_password']) ? $_POST['c_password'] : "",
 				'username_err' => '',
@@ -29,7 +28,9 @@ class Users extends controller
 				'email_err' => ''
 			];
 			// valid username
-			if (empty($_POST['username'])) {
+			// var_dump($_POST);
+			// die(is_array($_POST['username']));
+			if (empty($_POST['username']) || is_array($_POST['username'])) {
 				$data['username_err'] = "Please enter your username.";
 			} else {
 				if (!preg_match('/^[0-9A-Za-z_]{4,25}$/', $_POST['username'])) {
@@ -45,7 +46,7 @@ class Users extends controller
 				}
 			}
 			// valid email
-			if (empty($_POST['email'])) {
+			if (empty($_POST['email']) || is_array($_POST['email'])) {
 				$data['email_err'] = "Please enter your email.";
 			} else {
 				if (!preg_match('/^([a-z._0-9-]+)@([a-z0-9]+[.]?)*([a-z0-9])(\.[a-z]{2,4})$/mi', $_POST['email'])) {
@@ -60,7 +61,7 @@ class Users extends controller
 				}
 			}
 			// valid password
-			if (empty($_POST['password'])) {
+			if (empty($_POST['password']) || is_array($_POST['email'])) {
 				$data['password_err'] = "Please enter your password.";
 			} else {
 				// if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['password'])) {
@@ -69,7 +70,7 @@ class Users extends controller
 			}
 
 			// valid confirme password
-			if (empty($_POST['c_password'])) {
+			if (empty($_POST['c_password']) || is_array($_POST['c_password'])) {
 				$data['c_password_err'] = "Please enter confirme password.";
 			} else {
 				if ($_POST['password'] != $_POST['c_password']) {
@@ -115,7 +116,7 @@ class Users extends controller
 	}
 	public function login()
 	{
-		 if (islogged()) redirect('/');
+		if (islogged()) redirect('/');
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$data = [
 				'login' => isset($_POST['login']) ? $_POST['login'] : "",
@@ -124,7 +125,7 @@ class Users extends controller
 				'password_err' => '',
 			];
 			// valid login
-			if (empty($data['login']) or empty($data['password'])) {
+			if (empty($data['login']) || is_array($_POST['login'])) {
 				if (empty($data['login'])) $data['login_err'] = 'Email or username is required';
 				if (empty($data['password'])) $data['password_err'] = 'Password Is Required';
 			} else {
@@ -134,8 +135,10 @@ class Users extends controller
 				} else {
 					/*check the password*/
 					$var = $this->userModel->getDataUser($data['login']);
-					if (!password_verify($data['password'], ($var->password))) {
-						$data['password_err'] = 'Wrong Password';
+					if(is_array($_POST['password'])){
+						if (!password_verify($data['password'], ($var->password))) {
+							$data['password_err'] = 'Wrong Password';
+						}
 					}
 				}
 			}
@@ -149,7 +152,7 @@ class Users extends controller
 				} else {
 					// creat a session to a user 
 					$_SESSION['auth'] = $var;
-					$user = $_SESSION['auth'];
+					// $user = $_SESSION['auth'];
 					redirect('/');
 				}
 			} else {
@@ -168,7 +171,7 @@ class Users extends controller
 	public function verify($id = '', $token = '')
 	{
 		if (islogged()) redirect('/');
-		if(isset($id) && isset($token)){
+		if (isset($id) && isset($token)) {
 			echo "ana jit";
 			if (is_numeric($id) && (strlen($token) == 40)) {
 				$token_very = $this->userModel->token_very($id);
@@ -181,7 +184,7 @@ class Users extends controller
 					redirect("/users/login");
 				}
 			} else {
-	
+
 				setFlash("danger", "Token Alerdy Checked Or Not Valid.");
 				redirect("/users/register");
 			}
@@ -203,7 +206,7 @@ class Users extends controller
 				'email' => isset($_POST['email']) ? $_POST['email'] : "",
 				'email_err' => ''
 			];
-			if (empty($data['email'])) {
+			if (empty($data['email']) || is_array($_POST['email'])) {
 				$data['email_err'] = 'email required';
 			} else {
 				if (!preg_match('/^([a-z._0-9-]+)@([a-z0-9]+[.]?)*([a-z0-9])(\.[a-z]{2,4})$/mi', $_POST['email']))
@@ -239,78 +242,90 @@ class Users extends controller
 		// session_start();
 
 		$data = [
-			'id' => $id
+			'id' => $id,
+			'token' => $token,
+			'password' => '',
+			'c_password' => ''
 		];
 		if (islogged()) redirect('/');
 		if (is_numeric($id) && (strlen($token) == 40)) {
 			$var = $this->userModel->reset_very($id);
 			if (isset($var->reset_token)) {
 				if ($var->reset_token == $token) {
-					// $this->userModel->resetUpdate($id);
+					// // $this->userModel->resetUpdate($id);
 					$this->view('/users/passreset', $data);
+
+
+					// token is valid then start change password
 				} else {
 					setFlash('danger', 'token was expired');
-					redirect('users/forgot');
+					redirect('/users/forgot');
 				}
 			} else {
 
 				setFlash('danger', 'token was expired');
-				redirect('users/forgot/');
+				redirect('/users/forgot/');
 			}
 		} else {
 
-			// setFlash('danger', 'ana hna ');
-			// redirect('/');
+			setFlash('danger', 'Something is wrong');
+			redirect('/');
 		}
 	}
 
-	public function passreset($id)
+	public function passreset($id = null)
 	{
 		if (islogged()) redirect('/');
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$data = [
-				'password' => isset($_POST['password']) /*? $_POST['password'] : ""*/,
-				'c_pasword' => isset($_POST['c_password'])/* ? $_POST['c_password'] : ""*/,
-				'password_err' => '',
-				'c_password_err' => '',
-				'id' => $id
-			];
+		if ($id != null and isset($_SERVER['HTTP_REFERER'])) {
+			if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+				$data = [
+					'password' => isset($_POST['password']) ? $_POST['password'] : "",
+					'c_pasword' => isset($_POST['c_password']) ? $_POST['c_password'] : "",
+					'password_err' => '',
+					'c_password_err' => '',
+					'id' => $id
+				];
 
 
-			if (empty($_POST['password'])) {
-				$data['password_err'] = "Please enter your password.";
-				// } else {
-				// if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['password']))
-				// 	$data['password_err'] = "Please enter valid password.";
-			}
-
-			// valid confirme password
-			if (empty($_POST['c_password'])) {
-				$data['c_password_err'] = "Please enter confirme password.";
-			} else {
-				if ($_POST['password'] != $_POST['c_password']) {
-					$data['c_password_err'] = "Please confirme your password.";
+				if (empty($_POST['password']) || is_array($_POST['password'])) {
+					$data['password_err'] = "Please enter your password.";
+					// } else {
+					// if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['password']))
+					// 	$data['password_err'] = "Please enter valid password.";
 				}
-			}
 
-			if (empty($data['password_err']) && empty($data['c_password_err'])) {
-				// change hash password in the databasse 
-				$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
-				$this->userModel->passUpdate($data);
-				$this->userModel->resetUpdate($data['id']);
-				setFlash('success', 'password was reset');
-				redirect('/users/login');
+				// valid confirme password
+				if (empty($_POST['c_password']) || is_array($_POST['c_password'])) {
+					$data['c_password_err'] = "Please enter confirme password.";
+				} else {
+					if ($_POST['password'] != $_POST['c_password']) {
+						$data['c_password_err'] = "Please confirme your password.";
+					}
+				}
+
+				if (empty($data['password_err']) && empty($data['c_password_err'])) {
+					// change hash password in the databasse 
+					// var_dump($data);
+					// die();
+					$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+					$this->userModel->passUpdate($data);
+					$this->userModel->resetUpdate($data['id']);
+					setFlash('success', 'password was reset');
+					redirect('/users/login');
+				} else {
+					$this->view('/users/passreset', $data);
+				}
 			} else {
-				$this->view('users/passreset', $data);
+				$data = [
+					'password' => '',
+					'c_pasword' => '',
+					'password_err' => '',
+					'c_password_err' => ''
+				];
+				$this->view('/users/passreset', $data);
 			}
 		} else {
-			$data = [
-				'password' => '',
-				'c_pasword' => '',
-				'password_err' => '',
-				'c_password_err' => ''
-			];
-			$this->view('users/passreset', $data);
+			redirect('/users/login');
 		}
 	}
 }

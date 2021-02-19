@@ -7,8 +7,9 @@ class Home extends Controller
 	}
 	public function index()
 	{
-		$posts = $this->userCamera->getAllImage();
-		$this->view('index', ['posts' => $posts]);
+		$imgs = $this->userCamera->getAllImage();
+		$imgs = $this->userCamera->setData($imgs, $_SESSION['auth']->id);
+		$this->view('index', ['posts' => $imgs]);
 	}
 
 	public function setLike()
@@ -52,23 +53,29 @@ class Home extends Controller
 	public function setComment()
 	{
 		// start to sent comment to database
+		$json = [];
 		if ($_SERVER['REQUEST_METHOD'] == "GET") {
 			redirect("/users/login");
 		} else {
 			if (isLogged()) {
 				if (isset($_POST['img']) && isset($_POST['comment'])) {
 					$comment = htmlentities($_POST['comment']);
+					$img = $_POST['img'];
 					$img_path = $_POST['img'];
 					$id_user = $_SESSION['auth']->id;
 					if ($this->userCamera->addComment($img_path, $comment, $id_user)) {
-						echo "all is good";
+						$imgOwner = $this->userCamera->getNotif($img);
+						if ($imgOwner->notif) {
+							$json['notif'] = true;
+							$json['email'] = $imgOwner->email;
+						}
 					} else {
 						echo 'something went wrong';
 					}
 				}
 			}
 		}
-		// echo $json;
+		echo json_encode($json);
 	}
 	public function emailing()
 	{
@@ -86,6 +93,4 @@ class Home extends Controller
 			}
 		}
 	}
-
-	
 }
