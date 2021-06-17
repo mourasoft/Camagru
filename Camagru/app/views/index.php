@@ -37,7 +37,7 @@
 			<?php if (isLogged()) : ?>
 				<div class="content">
 					<div class="control has-icons-right">
-						<input class="input is-rounded" type="text" placeholder="comment...">
+						<input class="input is-rounded" type="text" placeholder="comment..." required>
 					</div>
 					<span id="sent_comment" class="icon is-large is-right">
 						<i class="fas fa-paper-plane"></i>
@@ -56,4 +56,14 @@
 		</div>
 	</div>
 <?php endforeach; ?>
+
+<nav class="pagination" role="navigation" aria-label="pagination">
+	<ul class="pagination-list">
+		<?php for($x= 1; $x <= $all ;$x++) :?>
+			<li>
+				<a href="/home/index/<?=$x?>" class="pagination-link is-current" aria-label="Page <?= $x?>" aria-current="page"><?= $x?></a>
+			</li>
+		<?php endfor;?>
+	</ul>
+</nav>
 <?php require_once APPROOT . "/views/inc/footer.php"; ?>

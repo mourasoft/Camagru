@@ -23,12 +23,12 @@ class Edits extends Controller
 					'old_password_err' => ''
 				];
 				// valid password
-				
+
 				if (empty($_POST['new_password']) || is_array($_POST['new_password'])) {
 					$data['new_password_err'] = "Please enter your  new password.";
 				} else {
-					if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['password'])) {
-						$data['password_err'] = "Please enter valid password.";
+					if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['new_password'])) {
+						$data['new_password_err'] = "Please enter valid password.";
 					}
 				}
 
@@ -70,8 +70,7 @@ class Edits extends Controller
 				];
 				$this->view('/edit/pass', $data);
 			}
-		}
-		else
+		} else
 			redirect('/');
 	}
 	public function profil()
@@ -89,7 +88,7 @@ class Edits extends Controller
 					'email_err' => '',
 					'password_err' => ''
 				];
-				
+
 				$id = $_SESSION['auth']->id;
 				if (empty($_POST['username']) || is_array($_POST['username'])) {
 					$data['username_err'] = "Please enter your username.";
@@ -130,13 +129,13 @@ class Edits extends Controller
 					}
 				}
 				// checkbox 
-				
+
 				if (empty($data['username_err']) && empty($data['email_err']) && empty($data['password_err'])) {
 
 					$data['username'] = strtolower($data['username']);
 					$data['email'] = strtolower($data['email']);
 					$this->userModel->updateprofil($id, $data);
-					setFlash("success", "Your Profile was updat");
+					setFlash("success", "Your Profile was update");
 					$var = $this->userModel->getById($id);
 					$_SESSION['auth'] = $var;
 					redirect('/edits/profil');
@@ -145,7 +144,7 @@ class Edits extends Controller
 					$this->view('/edit/profil', $data);
 				}
 			} else
-			
+
 				$data = [
 					'username' => $_SESSION['auth']->username,
 					'email' => $_SESSION['auth']->email,
@@ -158,5 +157,12 @@ class Edits extends Controller
 			$this->view('/edit/profil', $data);
 		} else
 			redirect('/');
+	}
+
+	public function delete()
+	{
+		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+			echo "ana hna";
+		}
 	}
 }

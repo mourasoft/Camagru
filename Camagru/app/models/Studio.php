@@ -30,9 +30,9 @@ class Studio
 		$this->db->bind(':path', $image);
 		$this->db->execute();
 	}
-	public function getAllImage()
+	public function getAllImage($start,$perPage)
 	{
-		$this->db->query("SELECT images.id, images.path, users.username, COUNT(posts.id_comment) as commentsCount  from images JOIN `users` on images.id_user = users.id LEFT JOIN posts on images.path = posts.image_pat  group by images.id ORDER BY `images`.`id` DESC; ");
+		$this->db->query("SELECT images.id, images.path, users.username, COUNT(posts.id_comment) as commentsCount  from images JOIN `users` on images.id_user = users.id LEFT JOIN posts on images.path = posts.image_pat  group by images.id ORDER BY `images`.`id` DESC LIMIT $start,$perPage; ");
 		return $this->db->resultSet();
 	}
 
@@ -123,5 +123,10 @@ class Studio
 			}
 		}
 		return $imgs;
+	}
+	public function countAllImage()
+	{
+		$this->db->query("SELECT COUNT(images.id) as countPost FROM `images`");
+		return $this->db->single()->countPost;
 	}
 }

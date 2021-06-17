@@ -7,7 +7,6 @@
 			<div class="notification is-<?= $type ?>"><?= $msg ?>
 			<button class="delete"></button>
 			</div>
-		
 	<?php endforeach; ?>
 <?php endif; ?>
 
@@ -19,7 +18,7 @@
 			<div class="field">
 				<label>Email or Username</label>
 				<div class="control has-icons-left has-icons-right">
-					<input class="input" name="login" type="text" value="<?php if (!$data['login_err']) echo $data['login']; ?>">
+					<input class="input" name="login" type="text" value="<?php if (!$data['login_err']) echo $data['login']; ?>" required>
 					<span class="icon is-small is-left">
 						<i class="fas fa-user"></i>
 					</span>
@@ -32,7 +31,7 @@
 				<label>Password</label>
 				<a href="/users/forgot" class="">FORGOT PASSWORD?</a>
 				<div class="control has-icons-left has-icons-right">
-					<input class="input" name="password" type="password" value="<?php if (!$data['password_err']) echo $data['password']; ?>">
+					<input class="input" name="password" type="password" value="<?php if (!$data['password_err']) echo $data['password']; ?>" required>
 					<span class="icon is-small is-left">
 						<i class="fas fa-lock"></i>
 					</span>

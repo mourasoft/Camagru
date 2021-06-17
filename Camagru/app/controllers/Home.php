@@ -5,11 +5,22 @@ class Home extends Controller
 	{
 		$this->userCamera = $this->model('Studio');
 	}
-	public function index()
+	public function index($pages = '')
 	{
-		$imgs = $this->userCamera->getAllImage();
-		$imgs = $this->userCamera->setData($imgs, $_SESSION['auth']->id);
-		$this->view('index', ['posts' => $imgs]);
+		$pages = isset($pages) ? (int)$pages  : 1;
+		$perPage = 5;
+		$allPost = $this->userCamera->countAllImage();
+		$totalPage = ceil($allPost / $perPage);
+		if ($pages > 1 && $pages <= $totalPage) {
+			$start = ($pages * $perPage) - $perPage;
+		} else {
+			$start = 0;
+		}
+
+		$imgs = $this->userCamera->getAllImage($start, $perPage);
+		$userID = isset($_SESSION['auth']->id) ? $_SESSION['auth']->id : null;
+		$imgs = $this->userCamera->setData($imgs, $userID);
+		$this->view('index', ['posts' => $imgs, 'all' => $totalPage]);
 	}
 
 	public function setLike()

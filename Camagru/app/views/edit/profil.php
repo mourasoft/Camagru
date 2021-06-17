@@ -3,12 +3,15 @@
 
 <?php if ($flash = getFlash()) : ?>
 	<?php foreach ($flash as $type => $msg) : ?>
-		<div class="notification is-<?= $type ?>"><?= $msg ?></div>
+		<div>
+			<div class="notification is-<?= $type ?>"><?= $msg ?>
+			<button class="delete"></button>
+			</div>
 	<?php endforeach; ?>
 <?php endif; ?>
 
 
-<div class="all">
+
 	<div class="form">
 		<div class="login-box">
 			<h1>Edit Profile</h1>
@@ -16,7 +19,7 @@
 				<div class="field">
 					<label>Username: *</label>
 					<div class="control has-icons-left has-icons-right">
-						<input class="input" name="username" type="text" value="<?php if (!$data['username_err']) echo $data['username']; ?>">
+						<input class="input" name="username" type="text" value="<?php if (!$data['username_err']) echo $data['username']; ?>" required>
 						<span class="icon is-small is-left">
 							<i class="fas fa-user"></i>
 						</span>
@@ -28,7 +31,7 @@
 				<div class="field">
 					<label>Email: *</label>
 					<div class="control has-icons-left has-icons-right">
-						<input class="input" name="email" type="text" value="<?php if (!$data['email_err']) echo $data['email']; ?>">
+						<input class="input" name="email" type="email" value="<?php if (!$data['email_err']) echo $data['email']; ?>" required>
 						<span class="icon is-small is-left">
 							<i class="fas fa-envelope"></i>
 						</span>
@@ -40,7 +43,7 @@
 				<div class="field">
 					<label>Password: *</label>
 					<div class="control has-icons-left has-icons-right">
-						<input class="input" name="password" type="password" value="<?php if (!$data['password_err']) echo $data['password']; ?>">
+						<input class="input" name="password" type="password" value="<?php if (!$data['password_err']) echo $data['password']; ?>"required>
 						<span class="icon is-small is-left">
 							<i class="fas fa-lock"></i>
 						</span>
@@ -53,8 +56,9 @@
 					<input type="checkbox" name="notif"  <?php if($data['notif'] ) echo 'checked';?>>
 					Notifications in your email
 				</label>
-				<div class="control is-justify-content-flex-start">
+				<div class="control ">
 					<input type="submit" value="Edit It" class="button is-rounded is-medium is-fullwidth">
+
 				</div>
 				<div><a href=<?= URLROOT . "/edits/pass" ?>>Change My Password</a></div>
 
@@ -62,7 +66,7 @@
 			</form>
 		</div>
 	</div>
-</div>
+
 
 
 <?php require_once APPROOT . "/views/inc/footer.php"; ?>

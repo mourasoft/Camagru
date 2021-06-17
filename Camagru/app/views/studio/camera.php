@@ -34,12 +34,6 @@
 				</span>
 				<span>start</span>
 			</button>
-			<button class="button is-warning" id="pause">
-				<span class="icon is-small">
-					<i class="fas fa-pause"></i>
-				</span>
-				<span>pause</span>
-			</button>
 			<button class="button is-danger" id="stop">
 				<span class="icon is-small">
 					<i class="fas fa-stop"></i>

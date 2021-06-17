@@ -3,7 +3,6 @@ class Users extends controller
 {
 	public function __construct()
 	{
-		// load model
 		$this->userModel = $this->model('User');
 	}
 	public function index()
@@ -64,9 +63,9 @@ class Users extends controller
 			if (empty($_POST['password']) || is_array($_POST['email'])) {
 				$data['password_err'] = "Please enter your password.";
 			} else {
-				// if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['password'])) {
-				// 	$data['password_err'] = "Please enter valid password.";
-				// }
+				if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['password'])) {
+					$data['password_err'] = "Please enter valid password.";
+				}
 			}
 
 			// valid confirme password
@@ -135,24 +134,28 @@ class Users extends controller
 				} else {
 					/*check the password*/
 					$var = $this->userModel->getDataUser($data['login']);
-					if(is_array($_POST['password'])){
-						if (!password_verify($data['password'], ($var->password))) {
+
+					if (!is_array($_POST['password'])) {
+						if (!password_verify($data['password'], ($var->password))) //{
 							$data['password_err'] = 'Wrong Password';
-						}
+						// }//else
+						// 	echo "khdama";
+					} else {
+						$data['password_err'] = 'Wrong is not aray';
 					}
 				}
 			}
 			if (isset($data['login_err'])) $data['password'] = '';
 			if (empty($data['password_err']) && empty($data['login_err'])) {
 				$var = $this->userModel->getDataUser($data['login']);
-				if (!$var->confirmed_at) {
+				if ($var->confirmed_at == null) {
 					setFlash('danger', 'Please Verify Your Account Email');
 					redirect('/users/login');
 					// die('ana hna');
 				} else {
 					// creat a session to a user 
-					$_SESSION['auth'] = $var;
 					// $user = $_SESSION['auth'];
+					$_SESSION['auth'] = $var;
 					redirect('/');
 				}
 			} else {
@@ -289,9 +292,9 @@ class Users extends controller
 
 				if (empty($_POST['password']) || is_array($_POST['password'])) {
 					$data['password_err'] = "Please enter your password.";
-					// } else {
-					// if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['password']))
-					// 	$data['password_err'] = "Please enter valid password.";
+				} else {
+					if (!preg_match('/(?=.{8,32})(?=.*[A-Z])(?=.*[a-z])(?=.*\d).*$/m', $_POST['password']))
+						$data['password_err'] = "Please enter valid password.";
 				}
 
 				// valid confirme password

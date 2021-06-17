@@ -17,7 +17,7 @@
 			<div class="field">
 				<label>Email</label>
 				<div class="control has-icons-left has-icons-right">
-					<input class="input" name="email" type="text" value="<?php if (!$data['email_err']) echo $data['email']; ?>">
+					<input class="input" name="email" type="email" value="<?php if (!$data['email_err']) echo $data['email']; ?>" required>
 					<span class="icon is-small is-left">
 						<i class="fas fa-envelope"></i>
 					</span>

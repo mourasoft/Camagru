@@ -2,35 +2,40 @@
 /* css body */
 /************/
 
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans&display=swap");
+
 html,
 body {
   height: 100%;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   background-color: #151e30;
+  font-family: "DM Sans", sans-serif;
+  text-transform: lowercase;
 }
 
 .main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 10vh;
   /* height: calc(100% - 65px); */
 }
 .all {
   display: flex;
 }
-.comment
-{
-	display: flex;
-	flex-direction: row;
-	width: 80%;
+.comment {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
 }
-.comment h2
-{
-	margin-right: 20px;
-	font-size: 20px;
+.comment h2 {
+  margin-right: 20px;
+  font-size: 20px;
 }
-.comment p{
-	word-wrap: break-word;
+.comment p {
+  word-wrap: break-word;
 }
 /**************/
 /* css navbar */
@@ -54,28 +59,17 @@ body {
 }
 .form {
   width: 420px;
-
   padding: 25px;
   background: #1d2f45;
   border-radius: 15px;
   color: white;
   margin: 50px 0;
 }
-/* .control {
-	display: flex !important;
-	justify-content: center !important;
-} */
-/* .form{
-	margin-left: auto!important;
-	margin-right: auto!important;
-	margin-top: auto!important;
-	margin-bottom: auto!important;
-} */
-/* .navbar{
-	padding-left: .5rem!important;
-	padding-right: .5rem!important;
-	
-} */
+
+form {
+  margin-top: 15px;
+}
+
 .studio {
   display: flex;
   flex-direction: column;
@@ -179,9 +173,7 @@ body {
 .sticker-item {
   cursor: pointer;
 }
-/* span.file-cta {
-  display: none;
-} */
+
 .imageStudio {
   width: 18%;
   margin: 10px;
@@ -216,11 +208,95 @@ body {
 @media only screen and (min-device-width: 320px) and (max-device-width: 768px) {
   .card {
     background-color: #f2eeee;
-    width: 100%;
+    width: 95%;
     margin: 1.5rem;
   }
   .card-content {
     padding: 0.5rem;
   }
+
+  .form {
+    width: 100%;
+    max-width: 420px;
+  }
+  .media-content {
+    overflow-x: unset;
+  }
+ 
+}
+@media screen and (max-width: 1023px){
+  .navbar-menu {
+      background-color:#011333;
+      box-shadow: 0 8px 16px rgba(10,10,10,.1);
+      padding: .5rem 0;
+      ;
+  }
 }
 /*  */
+
+.notFound {
+  width: 90%;
+  margin: 0px auto 30px;
+}
+footer {
+  text-align: center;
+}
+
+/**
+footer copyrights
+*/
+
+.signature {
+  margin: 10px auto;
+  padding: 10px 0;
+  width: 100%;
+}
+
+.signature p {
+  text-align: center;
+  font-size: 0.85em;
+  color: #fff;
+}
+
+.signature .much-heart {
+  display: inline-block;
+  position: relative;
+  margin: 0 4px;
+  height: 10px;
+  width: 10px;
+  background: #ac1d3f;
+  border-radius: 4px;
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.signature .much-heart::before,
+.signature .much-heart::after {
+  display: block;
+  content: "";
+  position: absolute;
+  margin: auto;
+  height: 10px;
+  width: 10px;
+  border-radius: 5px;
+  background: #ac1d3f;
+  top: -4px;
+}
+
+.signature .much-heart::after {
+  bottom: 0;
+  top: auto;
+  left: -4px;
+}
+
+.signature a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.fa-heart:before {
+  content: "\f004";
+  cursor: pointer;
+}

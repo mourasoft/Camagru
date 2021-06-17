@@ -15,9 +15,9 @@
 		
 			<div class="navbar-end">
 				<?php if (!islogged()) : ?>
+					<a href="<?= URLROOT ?>/camera" class="navbar-item">Camera</a>
 					<a href="<?= URLROOT ?>/users/register" class="navbar-item">register</a>
 					<a href="<?= URLROOT ?>/users/login" class="navbar-item">login</a>
-					<a href="<?= URLROOT ?>/camera" class="navbar-item">Camera</a>
 					<?php else : ?>
 						
 					<a href="<?= URLROOT ?>/camera" class="navbar-item">Camera</a>

@@ -25,8 +25,6 @@ class Camera extends Controller
 
 	public function saveImage()
 	{
-		// var_dump($_POST);
-		// die();
 		if (isLogged()) {
 			if (isset($_POST['imgBase64']) && isset($_POST['emoticon'])) {
 
